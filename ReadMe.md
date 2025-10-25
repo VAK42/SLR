@@ -1,14 +1,14 @@
 - **React**
 - **Remix**
-- **Next**
+- **Next** - https://nextjs.org/docs  
 - **Express**
 - **Fastify**
 - **Nest**
-- **Python**
+- **Python** - https://docs.python.org/3/tutorial/index.html  
 - **Django**
-- **Go**
+- **Go** - https://go.dev/learn  
 - **Gin**
-- **Java**
+- **Java** - https://java-programming.mooc.fi  
 - **Spring**
 - **DSA**
 - **MySQL**
@@ -16,6 +16,6 @@
 - **MongoDB**
 - **REST**
 - **GraphQL**
-- 
-- **JavaScript**: https://javascript.info  
-- **TypeScript**: https://www.typescriptlang.org/docs/handbook/intro.html
+  
+- **JavaScript** - https://javascript.info  
+- **TypeScript** - https://www.typescriptlang.org/docs/handbook/intro.html
