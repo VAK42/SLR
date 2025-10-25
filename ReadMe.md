@@ -13,7 +13,7 @@
 - **MySQL** - https://www.w3schools.com/MySQL/default.asp  
 - **PostgreSQL** - https://www.postgresql.org/docs/18/index.html  
 - **MongoDB** - https://www.mongodb.com/docs/manual  
-- **DSA**  
+- **DSA** - https://github.com/trekhleb/javascript-algorithms  
 --------------------------------------------------------------------------
 - **JavaScript** - https://javascript.info  
 - **TypeScript** - https://www.typescriptlang.org/docs/handbook/intro.html
