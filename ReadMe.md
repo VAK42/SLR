@@ -15,7 +15,7 @@
 - **PostgreSQL**
 - **MongoDB**
 - **REST**
-- **GraphQL**  
-  
+- **GraphQL**
+--------------------------------------------------------------------------
 - **JavaScript** - https://javascript.info  
 - **TypeScript** - https://www.typescriptlang.org/docs/handbook/intro.html
