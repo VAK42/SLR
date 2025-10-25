@@ -1,21 +1,19 @@
-- **React**
-- **Remix**
+- **React** - https://react.dev/learn  
+- **Remix** - https://v2.remix.run/docs  
 - **Next** - https://nextjs.org/docs  
-- **Express**
-- **Fastify**
-- **Nest**
+- **Express** - https://expressjs.com  
+- **Fastify** - https://fastify.dev/docs/latest  
+- **Nest** - https://docs.nestjs.com  
 - **Python** - https://docs.python.org/3/tutorial/index.html  
-- **Django**
+- **Django** - https://docs.djangoproject.com/en/5.2  
 - **Go** - https://go.dev/learn  
-- **Gin**
+- **Gin** - https://gin-gonic.com/en/docs  
 - **Java** - https://java-programming.mooc.fi  
-- **Spring**
-- **DSA**
-- **MySQL**
-- **PostgreSQL**
-- **MongoDB**
-- **REST**
-- **GraphQL**
+- **Spring Boot** - https://docs.spring.io/spring-boot/index.html
+- **MySQL** - https://www.w3schools.com/MySQL/default.asp  
+- **PostgreSQL** - https://www.postgresql.org/docs/18/index.html  
+- **MongoDB** - https://www.mongodb.com/docs/manual  
+- **DSA**  
 --------------------------------------------------------------------------
 - **JavaScript** - https://javascript.info  
 - **TypeScript** - https://www.typescriptlang.org/docs/handbook/intro.html
