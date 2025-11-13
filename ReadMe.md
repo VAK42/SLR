@@ -9,11 +9,11 @@
 - **Go** - https://go.dev/learn  
 - **Gin** - https://gin-gonic.com/en/docs  
 - **Java** - https://java-programming.mooc.fi  
-- **Spring Boot** - https://docs.spring.io/spring-boot/index.html
-- **MySQL** - https://www.w3schools.com/MySQL/default.asp  
+- **Spring Boot** - https://docs.spring.io/spring-boot/index.html  
 - **PostgreSQL** - https://www.postgresql.org/docs/18/index.html  
 - **MongoDB** - https://www.mongodb.com/docs/manual  
 - **DSA** - https://github.com/trekhleb/javascript-algorithms  
 --------------------------------------------------------------------------
 - **JavaScript** - https://javascript.info  
-- **TypeScript** - https://www.typescriptlang.org/docs/handbook/intro.html
+- **TypeScript** - https://www.typescriptlang.org/docs/handbook/intro.html  
+- **MySQL** - https://www.w3schools.com/MySQL/default.asp
