@@ -6,6 +6,7 @@
 - **Nest** - https://docs.nestjs.com  
 - **Python** - https://docs.python.org/3/tutorial/index.html  
 - **Go** - https://go.dev/learn  
+- **Gin** - https://gin-gonic.com/en/docs  
 - **Java** - https://java-programming.mooc.fi  
 - **Spring Boot** - https://docs.spring.io/spring-boot/index.html  
 - **PostgreSQL** - https://www.postgresql.org/docs/18/index.html  
