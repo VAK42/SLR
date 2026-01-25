@@ -1,15 +1,14 @@
 - **React** - https://react.dev/learn  
 - **Next** - https://nextjs.org/docs  
 - **Express** - https://expressjs.com  
-- **Fastify** - https://fastify.dev/docs/latest  
 - **Nest** - https://docs.nestjs.com  
 - **Python** - https://docs.python.org/3/tutorial/index.html  
-- **Go** - https://go.dev/learn  
+- **Go** - https://go.dev/tour/list  
 - **Java** - https://java-programming.mooc.fi  
 - **Spring Boot** - https://docs.spring.io/spring-boot/index.html  
-- **PostgreSQL** - https://www.postgresql.org/docs/18/index.html  
 - **MongoDB** - https://www.mongodb.com/docs/manual  
 --------------------------------------------------------------------------
 - **JavaScript** - https://javascript.info  
 - **TypeScript** - https://www.typescriptlang.org/docs/handbook/intro.html  
-- **MySQL** - https://www.w3schools.com/MySQL/default.asp
+- **MySQL** - https://www.w3schools.com/MySQL/default.asp  
+- **PostgreSQL** - https://www.postgresql.org/docs/18/index.html  
