@@ -4,7 +4,6 @@
 - **Go** - https://go.dev/tour/list  
 - **Java** - https://java-programming.mooc.fi  
 - **Spring Boot** - https://docs.spring.io/spring-boot/index.html  
---------------------------------------------------------------------------
 - **JavaScript** - https://javascript.info  
 - **TypeScript** - https://www.typescriptlang.org/docs/handbook/intro.html  
 - **MySQL** - https://www.w3schools.com/MySQL/default.asp  
