@@ -1,17 +1,15 @@
-- FastAPI
 - Spring Boot
 - ExpressJS
 - ReactJS
 - NextJS
+- FastAPI
 
 ---
 
 - Python
 - TypeScript
 - Java
-
 - DSA
-
 - Nginx
 - Kafka
 - RabbitMQ
