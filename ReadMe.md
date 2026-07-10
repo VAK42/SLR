@@ -1,10 +1,27 @@
-- **React** - https://react.dev/learn  
-- **Next** - https://nextjs.org/docs  
-- **Express** - https://expressjs.com  
-- **Go** - https://go.dev/tour/list  
-- **Java** - https://java-programming.mooc.fi  
-- **Spring Boot** - https://docs.spring.io/spring-boot/index.html  
-- **JavaScript** - https://javascript.info  
-- **TypeScript** - https://www.typescriptlang.org/docs/handbook/intro.html  
-- **MySQL** - https://www.w3schools.com/MySQL/default.asp  
-- **PostgreSQL** - https://www.postgresql.org/docs/18/index.html  
+- FastAPI
+- Spring Boot
+- ExpressJS
+- ReactJS
+- NextJS
+
+---
+
+- Python
+- TypeScript
+- Java
+
+- DSA
+
+- Nginx
+- Kafka
+- RabbitMQ
+- Redis
+- PostgreSQL
+- Docker
+- Kubernetes
+- Terraform
+- Ansible
+- Jenkins
+- Prometheus
+- ELK
+- Grafana
