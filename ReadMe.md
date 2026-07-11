@@ -7,8 +7,10 @@
 ---
 
 - Python
-- TypeScript
 - Java
+
+---
+
 - DSA
 - Nginx
 - Kafka
