@@ -1,3 +1,4 @@
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -34,6 +35,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import java.util.List;
+import java.util.Map;
 /*
 @SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
 @Configuration: Đánh Dấu Class Này Chứa Các @Bean -> Spring Đọc
@@ -114,19 +116,15 @@ class ItemController {
 }
 
 /*
-Dependency Injection:
-- Tránh Lặp Code Khởi Tạo
-- Thay Vì Tự New Class Khắp Nơi -> Spring Tự Khởi Tạo & Bơm Vào
-- Khi Cần Sửa Đổi -> Chỉ Cần Sửa Đúng 1 Nơi Duy Nhất
-Vấn Đề Ambiguity Khi Lập Trình Với Interface:
-- Khi Khai Báo Kiểu Interface PaymentGateway -> Có Nhiều Class Con Cùng Thỏa Mãn
-- Spring Sẽ Bối Rối Ko Bt Chọn Class Nào Để Bơm Vào Constructor → Lỗi Crash
-@Primary — Hành Vi Mặc Định Toàn Hệ Thống:
-- Đặt Làm Cổng Thanh Toán Chính (VD: VNPay Cho 100 Class Dùng Chung)
-- Khi Muốn Đổi Cổng Thanh Toán Mặc Định Toàn App -> Chỉ Cần Gỡ @Primary & Gắn Sang Class Khác
-@Qualifier — Giải Quyết Các Trường Hợp Ngoại Lệ:
-- Chỉ Định Đích Danh Khi Muốn Ghi Đè Lên Cấu Hình Mặc Định Của Hệ Thống
-- VD: Mặc Định Dùng VNPay Nhưng Riêng Dịch Vụ Ship COD Thì Ép Dùng Momo
+Dependency Injection & Loose Coupling:
+- Giảm Phụ Thuộc Trực Tiếp Từ Service Class Vào Implementation Class
+- Service Chỉ Phụ Thuộc Vào PaymentGateway
+- Thay Đổi Default Bean Qua @Primary Ko Cần Sửa Source Code Của Service
+
+Cơ Chế Phân Giải Ambiguity Khi Dùng Interface:
+- Single Interface Injection: Auto Resolve @Primary Bean
+- Explicit Qualifier Binding: Override Default Bean With @Qualifier("name")
+- Strategy Pattern Injection: Inject Map<String, Implementation> For Dynamic Selection
 */
 interface PaymentGateway {
   void process(double amount);
@@ -147,23 +145,40 @@ class MomoPayment implements PaymentGateway {
     System.out.println("Momo:" + amount);
   }
 }
+// Single Interface Injection & Loose Coupling
 @Service
 class CheckoutService {
-  private final PaymentGateway primaryGateway;
-  private final PaymentGateway momoGateway;
-  // Spring 4.3+:     Ko Cần @Autowired -> Tự Inject Qua Constructor
-  // primaryGateway → Ko Có @Qualifier → Spring Chọn @Primary (VnPayPayment)
-  // momoGateway    → Có @Qualifier("momo") → Spring Chọn Đúng MomoPayment
-  public CheckoutService(
-    PaymentGateway primaryGateway,
-    @Qualifier("momo") PaymentGateway momoGateway
-  ) {
-    this.primaryGateway = primaryGateway;
-    this.momoGateway = momoGateway;
+  private final PaymentGateway paymentGateway;
+  public CheckoutService(PaymentGateway paymentGateway) {
+    this.paymentGateway = paymentGateway; // Inject @Primary Bean (VnPayPayment)
   }
   public void checkout(double amount) {
-    primaryGateway.process(amount);
-    momoGateway.process(amount);
+    paymentGateway.process(amount);
+  }
+}
+// Explicit Qualifier Binding
+@Service
+class MomoSpecialService {
+  private final PaymentGateway paymentGateway;
+  public MomoSpecialService(@Qualifier("momo") PaymentGateway paymentGateway) {
+    this.paymentGateway = paymentGateway; // Inject @Qualifier Bean (MomoPayment)
+  }
+  public void processMomo(double amount) {
+    paymentGateway.process(amount);
+  }
+}
+// Dynamic Strategy Pattern Injection
+@Service
+class DynamicCheckoutService {
+  private final Map<String, PaymentGateway> paymentGateways;
+  public DynamicCheckoutService(Map<String, PaymentGateway> paymentGateways) {
+    this.paymentGateways = paymentGateways;
+  }
+  public void checkout(String provider, double amount) {
+    PaymentGateway gateway = paymentGateways.get(provider);
+    if (gateway != null) {
+      gateway.process(amount);
+    }
   }
 }
 /*
