@@ -54,7 +54,7 @@ public class MemoryGC {
   Heap: A, B, C - Đối Tượng
 
   B2: staticRoot = a
-  staticRoot Trên Heap Trỏ Vào A -> A Đc Trỏ Bởi a & staticRoot
+  staticRoot Trên Heap Trỏ Vào A -> A Dc Trỏ Bởi a & staticRoot
 
   B3: Set null Cho a, b
   a, b Trên Stack Bị Xóa -> B Unreachable
@@ -167,14 +167,14 @@ public class MemoryGC {
   Solution: WeakHashMap
 
   P2: Inner Class Giữ Outer Reference:
-  class Outer { class Inner {} } -> Inner Class Giữ OuterClass.this -> Nếu Inner Class Đc Dùng Dù Outer Class Finished -> Ko Thể Bị GC Thu Hồi Vì Inner Class Giữ this
+  class Outer { class Inner {} } -> Inner Class Giữ OuterClass.this -> Nếu Inner Class Dc Dùng Dù Outer Class Finished -> Ko Thể Bị GC Thu Hồi Vì Inner Class Giữ this
   Solution: Static Inner Class
 
-  P3: Listeners Ko Đc Unregister:
+  P3: Listeners Ko Dc Unregister:
   eventBus.subscribe(listener) Mà Ko Gọi unsubscribe -> Leak
   Solution: Phải unregister/unsubscribe
 
-  P4: Thread Local Ko Đc Remove:
+  P4: Thread Local Ko Dc Remove:
   ThreadLocal<Object> local = new ThreadLocal<>(); -> Nếu Ko Xóa -> Thread Ko Empty -> Ko Thể Tái Sử Dụng
   Trong Thread Pool: local.remove() Sau Khi Dùng Xong!
   */

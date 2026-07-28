@@ -91,7 +91,7 @@ public class InterfacesFunctional {
     // Supplier Produce Ko Cần Input
     Supplier<String> timestamp = () -> String.valueOf(System.currentTimeMillis());
     System.out.println(timestamp.get());
-    // BiFunction Hai Input Một Output
+    // BiFunction Hai Input 1 Output
     BiFunction<Integer, Integer, Integer> max = Math::max;
     System.out.println(max.apply(10, 20));
     // UnaryOperator Function
@@ -120,7 +120,7 @@ public class InterfacesFunctional {
 
   /*
   Custom Functional Interface Chaining: Tự Định Nghĩa Functional Interface & Sử Dụng default Method Để Nối Chuỗi Thực Thi
-  Sealed Class Interface: Limit Các Subclass Đc Phép Kế Thừa Bằng sealed & permits
+  Sealed Class Interface: Limit Các Subclass Dc Phép Kế Thừa Bằng sealed & permits
   Exhaustive Pattern Matching: Cho Phép Write switch Expression Khớp Hoàn Toàn Các Case Mà Ko Cần default Case
   */
   public static void customFunctional() {

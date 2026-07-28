@@ -1,16 +1,16 @@
 /*
 useState: Lưu Trữ State Nội Bộ Của Component + Trigger Re-render Khi Thay Đổi
-useEffect: Chạy Side Effects Sau Khi DOM Đã Được Render
+useEffect: Chạy Side Effects Sau Khi DOM Đã Dc Render
   - Dependency Array []: Chỉ Chạy 1 Lần Sau Lần Render Đầu Tiên
   - Dependency Array [a, b]: Chạy Lại Mỗi Khi a Hoặc b Thay Đổi
-  - Không Có Dependency Array: Chạy Lại Sau Mỗi Lần Re-render
+  - Ko Có Dependency Array: Chạy Lại Sau Mỗi Lần Re-render
   - Cleanup Function (return () => ...): Chạy Trước Effect Tiếp Theo & Lúc Unmount -> Hủy Timer, Subscription
-useRef: Lưu Trữ Giá Trị Mutable Mà Không Trigger Re-render + Truy Cập DOM Element Trực Tiếp
+useRef: Lưu Trữ Giá Trị Mutable Mà Ko Trigger Re-render + Truy Cập DOM Element Trực Tiếp
 useMemo: Cache Kết Quả Tính Toán Nặng -> Chỉ Tính Lại Khi Dependencies Thay Đổi
 useCallback: Cache Reference Hàm -> Tránh Re-render Thừa Cho Child Component Bọc Bằng React.memo
 useContext: Đọc Giá Trị Từ Context Provider Gần Nhất Phía Trên Trong Cây Component
 useReducer: Thay Thế useState Khi State Logic Phức Tạp Hoặc Có Nhiều Sub-Values Liên Quan
-React.memo: HOC Bọc Component -> Bỏ Qua Re-render Nếu Props Không Thay Đổi (Shallow Compare)
+React.memo: HOC Bọc Component -> Bỏ Qua Re-render Nếu Props Ko Thay Đổi (Shallow Compare)
 */
 import { useState, useEffect, useRef, useMemo, useCallback, createContext, memo } from "react"
 import { persist, devtools } from "zustand/middleware"
@@ -36,16 +36,16 @@ function Timer({ userId }) {
   useEffect(() => {
     const id = setInterval(() => setSeconds(prev => prev + 1), 1000)
     /*
-    setInterval: Cứ Sau Đúng x ms -> Tự Động Kích Hoạt + Chạy Hàm Callback Đc Truyền Vào Ở Đối Số Thứ Nhất
+    setInterval: Cứ Sau Đúng x ms -> Tự Động Kích Hoạt + Chạy Hàm Callback Dc Truyền Vào Ở Đối Số Thứ Nhất
 
     () => setSeconds(seconds + 1)
     Lần Render 1 -> Tạo Execution Context 1 -> useState Khởi Tạo seconds=0 + useEffect Chạy & Đăng Ký Callback -> Callback Liên Kết Với Execution Context Này
     Lần Render 2 -> Tạo Execution Context 2 -> useState Khởi Tạo seconds=1 + useEffect Ko Chạy & Ko Đăng Ký Callback
-    x ms Trôi Qua -> Callback Cũ Đc Gọi -> Tìm Thấy seconds=0 Do Callback Này Đc Liên Kết Với Execution Context 1
+    x ms Trôi Qua -> Callback Cũ Dc Gọi -> Tìm Thấy seconds=0 Do Callback Này Dc Liên Kết Với Execution Context 1
     
     () => setSeconds(prev => prev + 1)
-    prev Ko Bị Giới Hạn + Ko Phụ Thuộc Vào Execution Context Nào Cả + Đc React Lưu Trữ Ở Kho State Riêng Độc Lập & Cập Nhật Giá Trị Mới Nhất
-    x ms Trôi Qua -> Callback Cũ Đc Gọi -> Tìm prev
+    prev Ko Bị Giới Hạn + Ko Phụ Thuộc Vào Execution Context Nào Cả + Dc React Lưu Trữ Ở Kho State Riêng Độc Lập & Cập Nhật Giá Trị Mới Nhất
+    x ms Trôi Qua -> Callback Cũ Dc Gọi -> Tìm prev
     */
     return () => clearInterval(id) // Dừng & Xóa Vĩnh Viễn -> Liên Kết Giữa Browser & Callback Bị Đứt -> Callback & Execution Context Chứa Nó Ko Còn Path Để Truy Cập -> Thu Hồi Bộ Nhớ (Garbage Collected)
   }, [])
@@ -57,7 +57,7 @@ function Timer({ userId }) {
       .then(json => { if (!aborted) setData(json) })
     return () => { aborted = true }
     /*
-    Trường Hợp Khi Gọi fetch userId=1 Nhưng Chưa Xử Lý Xong Đã Gọi fetch userId=2 -> Cleanup Đc Chạy Cho API 1
+    Trường Hợp Khi Gọi fetch userId=1 Nhưng Chưa Xử Lý Xong Đã Gọi fetch userId=2 -> Cleanup Dc Chạy Cho API 1
     Nhận Dc Kết Quả Từ Cả 2 Nhưng API 1 Aborted -> Chỉ Trả Kết Quả Của API 2
     */
   }, [userId])
@@ -92,12 +92,12 @@ const ExpensiveList = memo(function ExpensiveList({ items, onDelete }) {
 function Parent() {
   const [query, setQuery] = useState("")
   const [items] = useState([{ id: 1, name: "A" }, { id: 2, name: "B" }])
-  // useMemo: Cache Kết Quả Filter Mảng - Không Tính Lại Khi query Không Đổi -> Tối Ưu Việc Tính Toán Nặng
+  // useMemo: Cache Kết Quả Filter Mảng - Ko Tính Lại Khi query Ko Đổi -> Tối Ưu Việc Tính Toán Nặng
   const filtered = useMemo(
     () => items.filter(i => i.name.toLowerCase().includes(query)),
     [items, query]
   )
-  // useCallback: Cache Reference Hàm - Không Tạo Hàm Mới Mỗi Lần Re-render -> Tối Ưu Việc Re-render Component Con
+  // useCallback: Cache Reference Hàm - Ko Tạo Hàm Mới Mỗi Lần Re-render -> Tối Ưu Việc Re-render Component Con
   const handleDelete = useCallback((id) => {
     console.log("Remove?", id)
   }, [])
@@ -118,7 +118,7 @@ function ThemedButton() {
 /*
 useContext Giúp Truyền props Xuyên Nhiều Components Mà Ko Cần Nhận/Truyền Liên Tục Giữa Các Components
 Nếu Có Nhiều Provider Bọc Đè Lên Nhau Thì Lấy Giá Trị Từ Provider Gần Nhất
-Nằm Ngoài Provider Sẽ Tự Động Dùng Giá Trị Đc Khai Báo Ban Đầu Ở createContext()
+Nằm Ngoài Provider Sẽ Tự Động Dùng Giá Trị Dc Khai Báo Ban Đầu Ở createContext()
 value Của Provider Thay Đổi -> Tất Cả Các Component Đang Dùng useContext Đó Sẽ Bắt Buộc Phải Re-render
 */
 function App() {
@@ -175,7 +175,7 @@ const useCountStore = create(
   )
 )
 function ZustandCounter() {
-  // Selector: Chỉ Re-render Khi count Thay Đổi (Không Re-render Khi items Thay Đổi)
+  // Selector: Chỉ Re-render Khi count Thay Đổi (Ko Re-render Khi items Thay Đổi)
   const count = useCountStore(s => s.count)
   const increment = useCountStore(s => s.increment)
   const reset = useCountStore(s => s.reset)
@@ -188,7 +188,7 @@ function ZustandCounter() {
   )
 }
 function ZustandItems() {
-  // Selector: Chỉ Re-render Khi items Thay Đổi (Không Re-render Khi count Thay Đổi)
+  // Selector: Chỉ Re-render Khi items Thay Đổi (Ko Re-render Khi count Thay Đổi)
   const items = useCountStore(s => s.items)
   const addItem = useCountStore(s => s.addItem)
   const removeItem = useCountStore(s => s.removeItem)

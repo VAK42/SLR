@@ -1,5 +1,5 @@
 public class PrimitivesTypes {
-  // 8 Kiểu Nguyên Thủy Ko Phải Object + Đc Lưu Trực Tiếp Trên Stack
+  // 8 Kiểu Nguyên Thủy Ko Phải Object + Dc Lưu Trực Tiếp Trên Stack
   public static void primitives() {
     byte byteVal = 127;                  // 8-bit signed: -128 -> 127
     short shortVal = 32767;              // 16-bit signed
@@ -79,11 +79,11 @@ public class PrimitivesTypes {
       System.out.println("Item:" + item.toUpperCase());
     }
     /*
-    var Ko Đc Dùng Cho:
+    var Ko Dc Dùng Cho:
     - Method Parameters
     - Return Types
     - Fields
-    - Không Có Initializer
+    - Ko Có Initializer
     var Ko Phải Dynamic Typing — Kiểu Vẫn Fixed Lúc Compile
     */
     var text = "VAK";

@@ -1,4 +1,5 @@
 import express from "express"
+import crypto from "crypto"
 const app = express()
 // Built-in Middleware
 app.use(express.json({ limit: "1mb" }))         // Parse JSON Body
@@ -9,7 +10,7 @@ app.use((req, res, next) => {
   req.startTime = Date.now()
   res.on("finish", () => {
     const duration = Date.now() - req.startTime
-    console.log(`${req.method} ${req.path} ${res.statusCode} ${duration}ms [${req.requestId}]`)
+    console.log(`${req.method} ${req.path} ${res.statusCode} ${duration}ms ${req.requestId}`)
   })
   next() // Chuyền Control Sang Middleware Tiếp Theo
   /*
@@ -84,14 +85,13 @@ class ValidationError extends Error {
   }
 }
 // asyncHandler — Wrap Async Route Để Tự Động Forward Error
-const asyncHandler = (fn) => (req, res, next) =>
-  Promise.resolve(fn(req, res, next)).catch(next)
+const asyncHandler = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 /*
 NodeJS Đơn Luồng -> Chạy JS Main Thread
-I/O Tasks Đc Giao Cho OS/libuv -> Đẩy Kết Quả Vào Event Loop Khi Hoàn Thành -> Event Loop Đưa Callback Về JS Main Thread Xử Lý Nốt
+I/O Tasks Dc Giao Cho OS/libuv -> Đẩy Kết Quả Vào Event Loop Khi Hoàn Thành -> Event Loop Đưa Callback Về JS Main Thread Xử Lý Nốt
 JS Runtime Environment: Call Stack + Microtask/Macrotask + Event Loop
 Single Thread: Chỉ Vận Hành Call Stack - Nơi Biên Dịch/Chạy Code JS Đồng Bộ -> Thực Thi Duy Nhất 1 Dòng Code Ở Đỉnh Stack Tại 1 Thời Điểm
-Queues: Nơi Lưu Trữ Callbacks Chờ Trong RAM -> Không Tự Thực Thi Code + Chỉ Là Danh Sách Xếp Hàng Chờ
+Queues: Nơi Lưu Trữ Callbacks Chờ Trong RAM -> Ko Tự Thực Thi Code + Chỉ Là Danh Sách Xếp Hàng Chờ
 Event Loop: Bộ Điều Phối Chạy Liên Tục + Chờ Call Stack Trống -> Đẩy Callbacks Từ Queues Lên Call Stack Để Single Thread Xử Lý Nốt
 */
 app.get("/items/:id", asyncHandler(async (req, res) => {
@@ -117,7 +117,7 @@ JWT: Header.Payload.Signature
 Header: Chứa Metadata Về Token -> Thường Có alg (HS256, RS256, ...) + typ (JWT)
 Payload: Chứa Thông Tin Muốn Lưu Trữ -> Thường Có Thông Tin Người Dùng, Hệ Thống...
 Signature: Đảm Bảo Token Ko Bị Chỉnh Sửa Trên Đường Đi - alg(Header (Base64) + Payload (Base64) + Secret Key)
-JWT Token Ở Client Hoàn Toàn Giải Mã Đc Do Base64Url Ko Phải Mã Hóa Bảo Mật -> Ko Lưu Thông Tin Nhạy Cảm
+JWT Token Ở Client Hoàn Toàn Giải Mã Dc Do Base64Url Ko Phải Mã Hóa Bảo Mật -> Ko Lưu Thông Tin Nhạy Cảm
 Nên Dùng Refresh Token Để Cấp Lại Access Token Mới + Set Access Token Expiration Ngắn Hạn
 */
 import jwt from "jsonwebtoken"

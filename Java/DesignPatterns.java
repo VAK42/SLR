@@ -76,7 +76,7 @@ enum EnumSingleton {
 Double-Checked Locking (DCL) Singleton: Thread-Safe + Lazy Init + High Performance
 - synchronized Block: Chỉ Lock Khi instance Chưa Tạo (Tránh Bottleneck Hơn So Với Method-Level synchronized)
 - volatile:
-  + Ngăn Instruction Reordering: CPU Có Thể Đảo Lệnh Khởi Tạo (Cấp Vùng Nhớ -> Gán Reference -> Chạy Constructor) Khiến Thread Khác Lấy Phải Đối Tượng Rỗng -> volatile Ép Chạy Constructor Xong Ms Đc Gán Reference
+  + Ngăn Instruction Reordering: CPU Có Thể Đảo Lệnh Khởi Tạo (Cấp Vùng Nhớ -> Gán Reference -> Chạy Constructor) Khiến Thread Khác Lấy Phải Đối Tượng Rỗng -> volatile Ép Chạy Constructor Xong Ms Dc Gán Reference
   + Đảm Bảo Visibility: Ép Update Value instance Ngay Lập Tức Từ CPU Cache Về RAM Để Các Threads Khác Thấy Luôn
 */
 final class DclSingleton {
@@ -96,7 +96,7 @@ final class DclSingleton {
 
 /*
 Initialization-On-Demand Holder Singleton: Thread-Safe + Lazy Init + Lock-Free
-- Cơ Chế: Class Con Holder Chỉ Đc JVM Load Vào Bộ Nhớ Khi Hàm getInstance() Đc Gọi Lần Đầu (Lazy)
+- Cơ Chế: Class Con Holder Chỉ Dc JVM Load Vào Bộ Nhớ Khi Hàm getInstance() Dc Gọi Lần Đầu (Lazy)
 - Lock-Free: Tận Dụng Cơ Chế Load Class Của JVM Luôn Đảm Bảo Thread-Safe Tự Nhiên Ở Tầng Hệ Thống Mà Ko Cần Dùng Khóa synchronized
 */
 final class HolderSingleton {

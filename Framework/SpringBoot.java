@@ -52,8 +52,8 @@ public class SpringBootFramework {
     */
     ApplicationContext ctx = SpringApplication.run(SpringBootFramework.class, args);
     /*
-    ApplicationContext: Nơi Chứa Toàn Bộ Bean Đã Được Khởi Tạo
-    getBeanDefinitionCount() Trả Về Số Lượng Bean Đang Được Quản Lý
+    ApplicationContext: Nơi Chứa Toàn Bộ Bean Đã Dc Khởi Tạo
+    getBeanDefinitionCount() Trả Về Số Lượng Bean Đang Dc Quản Lý
     */
     System.out.println(ctx.getBeanDefinitionCount());
   }
@@ -61,15 +61,15 @@ public class SpringBootFramework {
 /*
 @Configuration — CGLIB Proxy Đảm Bảo Singleton
 @Configuration -> Spring Dùng CGLIB Tạo Subclass Proxy Cho Class Này -> Dù Gọi service() Nhiều Lần -> Luôn Trả Về Cùng 1 Instance (Singleton)
-Nếu Dùng @Component Thay Vì @Configuration → Không Có Proxy → Tạo Instance Mới Mỗi Lần
+Nếu Dùng @Component Thay Vì @Configuration → Ko Có Proxy → Tạo Instance Mới Mỗi Lần
 */
 @Configuration
 class Config {
   /*
-  @Bean: Khai Báo Method Này Trả Về 1 Đối Tượng Sẽ Được Spring Quản Lý
+  @Bean: Khai Báo Method Này Trả Về 1 Đối Tượng Sẽ Dc Spring Quản Lý
   Method Name ("service"): Tên Bean Mặc Định Trong Container
-  @Bean("customService"): Tên Bean Custom Đc Thêm Vào Container
-  Spring Đảm Bảo Method Này Chỉ Thực Thi 1 Lần Dù Được Gọi Nhiều Nơi
+  @Bean("customService"): Tên Bean Custom Dc Thêm Vào Container
+  Spring Đảm Bảo Method Này Chỉ Thực Thi 1 Lần Dù Dc Gọi Nhiều Nơi
   */
   @Bean
   public Service service() {
@@ -96,7 +96,7 @@ class ItemController {
   }
   /*
   @Valid: Validate ItemRequest Theo Annotation Constraint: @NotBlank + @Positive Trước Khi Vào Method
-  Ko Có @Valid -> @NotBlank + @Positive Ko Đc Kiểm Tra
+  Ko Có @Valid -> @NotBlank + @Positive Ko Dc Kiểm Tra
   @RequestBody: Deserialize JSON Request Body → ItemRequest Object
   */
   @PostMapping // POST /items
@@ -120,7 +120,7 @@ Dependency Injection:
 - Khi Cần Sửa Đổi -> Chỉ Cần Sửa Đúng 1 Nơi Duy Nhất
 Vấn Đề Ambiguity Khi Lập Trình Với Interface:
 - Khi Khai Báo Kiểu Interface PaymentGateway -> Có Nhiều Class Con Cùng Thỏa Mãn
-- Spring Sẽ Bối Rối Ko Biết Chọn Class Nào Để Bơm Vào Constructor → Lỗi Crash
+- Spring Sẽ Bối Rối Ko Bt Chọn Class Nào Để Bơm Vào Constructor → Lỗi Crash
 @Primary — Hành Vi Mặc Định Toàn Hệ Thống:
 - Đặt Làm Cổng Thanh Toán Chính (VD: VNPay Cho 100 Class Dùng Chung)
 - Khi Muốn Đổi Cổng Thanh Toán Mặc Định Toàn App -> Chỉ Cần Gỡ @Primary & Gắn Sang Class Khác
@@ -151,8 +151,8 @@ class MomoPayment implements PaymentGateway {
 class CheckoutService {
   private final PaymentGateway primaryGateway;
   private final PaymentGateway momoGateway;
-  // Spring 4.3+:     Không Cần @Autowired -> Tự Inject Qua Constructor
-  // primaryGateway → Không Có @Qualifier → Spring Chọn @Primary (VnPayPayment)
+  // Spring 4.3+:     Ko Cần @Autowired -> Tự Inject Qua Constructor
+  // primaryGateway → Ko Có @Qualifier → Spring Chọn @Primary (VnPayPayment)
   // momoGateway    → Có @Qualifier("momo") → Spring Chọn Đúng MomoPayment
   public CheckoutService(
     PaymentGateway primaryGateway,
@@ -173,14 +173,14 @@ class CheckoutService {
 - Phù Hợp: Service, Repository, Controller
 @Scope("Prototype")
 - Tạo Instance Mới Mỗi Khi Có Yêu Cầu Inject
-- Ko Được Spring Quản Lý Sau Khi Tạo Ra - Không Gọi Destroy
+- Ko Dc Spring Quản Lý Sau Khi Tạo Ra - Ko Gọi Destroy
 - Phù Hợp: Bean Có Trạng Thái (Stateful) & Cần Tách Biệt Giữa Các Lần Dùng
 @Scope("Request")
 - 1 Instance Duy Nhất Trong Phạm Vi 1 HTTP Request
-- Chỉ Dùng Được Trong Web Application
+- Chỉ Dùng Dc Trong Web Application
 @Scope("Session")
 - 1 Instance Duy Nhất Trong Phạm Vi 1 HTTP Session
-- Chỉ Dùng Được Trong Web Application
+- Chỉ Dùng Dc Trong Web Application
 */
 
 /*
@@ -284,7 +284,7 @@ class SecurityConfig {
       .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       // Phân Quyền Từng Endpoint:
       .authorizeHttpRequests(a -> a
-        .requestMatchers("/auth/**", "/public/**").permitAll() // Ai Cũng Vào Đc
+        .requestMatchers("/auth/**", "/public/**").permitAll() // Ai Cũng Vào Dc
         .requestMatchers("/admin/**").hasRole("Admin")         // Chỉ Admin
         .anyRequest().authenticated()                          // Còn Lại Phải Đăng Nhập
       )
@@ -298,7 +298,7 @@ class SecurityConfig {
 @ConfigurationProperties: Bind Toàn Bộ 1 Nhóm Property Từ application.yml Vào 1 Class/Record
 - Type-Safe: Compile-Time Check + Ko Sợ Typo Key
 - Thay Thế @Value Từng Field Lẻ
-@Profile: Bean Chỉ Đc Tạo Khi Profile Tương Ứng Đang Active
+@Profile: Bean Chỉ Dc Tạo Khi Profile Tương Ứng Đang Active
 - Tách Biệt Config Cho Từng Môi Trường (Dev/Prod/Test)
 */
 @ConfigurationProperties(prefix = "app.database")

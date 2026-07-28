@@ -63,7 +63,7 @@ class UserCreate(BaseModel):
       raise ValueError("Reserved Username")
     return value.lower()
   
-  # Validate Sau Khi Tất Cả Fields Được Parse
+  # Validate Sau Khi Tất Cả Fields Dc Parse
   @model_validator(mode="after")
   def validateModel(self) -> "UserCreate":
     if self.age is not None and self.age < 13 and self.password:
@@ -116,14 +116,14 @@ async def getAdminData(
 ):
   return db.query("secretTable")
 
-# async def: Chạy Trên Event Loop & Không Block
+# async def: Chạy Trên Event Loop & Ko Block
 async def sendEmail(to: str, subject: str) -> None:
   await asyncio.sleep(0.1)
   print(f"Email Sent To {to}: {subject}")
 
 @app.post("/register/{email}")
 async def registerUser(email: str, tasks: BackgroundTasks):
-  # BackgroundTasks: Chạy Sau Khi Response Được Gửi
-  # Response Trả Về Ngay — Email Đc Gửi Sau Đó
+  # BackgroundTasks: Chạy Sau Khi Response Dc Gửi
+  # Response Trả Về Ngay — Email Dc Gửi Sau Đó
   tasks.add_task(sendEmail, email, "Welcome To Service")
   return {"status": "Registered", "email": email}

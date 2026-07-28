@@ -3,7 +3,7 @@ JDK (Java Development Kit) Chứa: javac, JRE, Development Tools
 JRE (Java Runtime Environment) Chứa: JVM + Standard Class Libraries
 JVM (Java Virtual Machine) Thực Thi Bytecode, Quản Lý Memory, Threading, GC
 Flow: .java -[javac]-> .class (Bytecode) -[JVM]-> Native Code
-JIT Compiler: Phát Hiện Hot Code Paths - Đoạn Code Đc Thực Thi Lặp Nhiều Lần -> Compile Bytecode (Đc Đọc & Chạy Bởi Interpreter) Thành Native Machine Code
+JIT Compiler: Phát Hiện Hot Code Paths - Đoạn Code Dc Thực Thi Lặp Nhiều Lần -> Compile Bytecode (Dc Đọc & Chạy Bởi Interpreter) Thành Native Machine Code
 Nhiều .class Files -> Đóng Gói Thành .jar File
 */
 public class JVMArchitecture {
@@ -64,7 +64,7 @@ public class JVMArchitecture {
 
   Debug:
   -ea -> Bật Assertions
-  -verbose:class -> Log Mỗi Class Được Load
+  -verbose:class -> Log Mỗi Class Dc Load
   */
   public static void main(String[] args) {
     classLoading();

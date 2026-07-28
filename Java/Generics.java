@@ -68,12 +68,12 @@ public class Generics {
   public static double sum(List<? extends Number> numbers) {
     double total = 0;
     for (Number num : numbers) {
-      total += num.doubleValue(); // Chỉ Đọc — Không Thể add() Vào
+      total += num.doubleValue(); // Chỉ Đọc — Ko Thể add() Vào
     }
     return total;
   }
   public static void copyInto(List<? super Integer> dest, List<Integer> src) {
-    dest.addAll(src); // Chỉ Ghi — Đọc Ra Chỉ Được Object
+    dest.addAll(src); // Chỉ Ghi — Đọc Ra Chỉ Dc Object
   }
   public static <T> void swap(List<T> list, int i, int j) {
     T temp = list.get(i);

@@ -4,8 +4,8 @@ import java.util.function.*;
 
 /*
 List: Cần Thứ Tự -> Cho Trùng Lặp
-Set: Không Cần Thứ Tự -> Cấm Trùng Lặp
-Map: Lưu Dạng Cặp Khóa - Giá Trị -> Khóa Không Được Trùng
+Set: Ko Cần Thứ Tự -> Cấm Trùng Lặp
+Map: Lưu Dạng Cặp Khóa - Giá Trị -> Khóa Ko Dc Trùng
 */
 public class CollectionsStreams {
   // ArrayList, LinkedList, Immutable List

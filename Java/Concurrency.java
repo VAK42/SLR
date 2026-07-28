@@ -68,7 +68,7 @@ public class Concurrency {
   Java.util.concurrent Utilities:
   CountDownLatch: 1/N Threads Chờ N Tasks Hoàn Thành - 1 Task Done -> Countdown - 1 -> Countdown = 0 -> Continue - (countDown(), await()) -> Non-Reuse
   CyclicBarrier: N Threads Chờ Nhau Tại Barrier -> N Threads Reach Barrier -> Continue - await() -> Reuse
-  Semaphore: Giới Hạn Số Threads Đc Phép Access Limited Resource Cùng Lúc (acquire(), release())
+  Semaphore: Giới Hạn Số Threads Dc Phép Access Limited Resource Cùng Lúc (acquire(), release())
   BlockingQueue: Thread-Safe Queue - Blocks put() Khi Full & take() Khi Empty - Solve Producer - Consumer Problem
   AtomicInteger: Increase/Decrease/Update 1 Cách Thread-Safe Mà Ko Cần Dùng Lock (lock-Free) Dựa Trên CAS (Compare-And-Swap)
   */
@@ -103,7 +103,7 @@ public class Concurrency {
 
   /*
   Virtual Threads (Java 21+): Lightweight JVM-Managed Threads
-  - Platform Threads: Luồng Truyền Thống + Tỉ Lệ 1:1 Với OS Thread + Chạy Sát Phần Cứng + Khởi Tạo Nặng (~1MB Stack) + Ôm Chặt 1 Task Từ Đầu Đến Cuối (Ko Swap Được) -> Chờ I/O Sẽ Khóa Cứng Luồng OS
+  - Platform Threads: Luồng Truyền Thống + Tỉ Lệ 1:1 Với OS Thread + Chạy Sát Phần Cứng + Khởi Tạo Nặng (~1MB Stack) + Ôm Chặt 1 Task Từ Đầu Đến Cuối (Ko Swap Dc) -> Chờ I/O Sẽ Khóa Cứng Luồng OS
   - Carrier Threads: Bản Chất Là Platform Threads Đóng Vai Trò Làm Slot Cho Virtual Threads (VT Giữ Task) -> Có Thể Swap (Luân Phiên Chạy) Nhiều Virtual Threads Khác Nhau
   - Cơ Chế: Khi Virtual Thread Gặp Block I/O -> JVM Tự Động Unmount Virtual Thread Đưa Vào Heap -> Nhường Carrier Thread Cho Virtual Thread Khác -> Khi Xong I/O -> JVM Gắn Lại Virtual Thread Vào Carrier Thread Rảnh
   - newVirtualThreadPerTaskExecutor: Tạo Virtual Thread Mới Mỗi Task - Thay Thế Fixed Thread Pool Cho I/O-Bound Workloads

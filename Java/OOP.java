@@ -54,7 +54,7 @@ class Car extends Vehicle {
   }
   @Override
   public String describe() {
-    return super.describe() + " Doors: " + doors; // Mở Rộng + Không Thay Thế
+    return super.describe() + " Doors: " + doors; // Mở Rộng + Ko Thay Thế
   }
 }
 class ElectricCar extends Car {
@@ -123,7 +123,7 @@ public class OOP {
   // Reusable Code: Write 1 Hàm Nhận Shape (Cha) Để Dùng Chung Cho Mọi Lớp Con
   public static void showArea(Shape s) {
     /*
-    Có Polymorphism -> Code Tái Sử Dụng Đc (showArea Nhận Bất Cứ Subclass Nào Của Shape)
+    Có Polymorphism -> Code Tái Sử Dụng Dc (showArea Nhận Bất Cứ Subclass Nào Của Shape)
     Ko Có Polymorphism -> Phải Write Hàm Riêng Cho Từng Subclass (showAreaCircle, showAreaRectangle) -> Lặp Code
     */
     System.out.println("Area: " + s.area());
@@ -134,7 +134,7 @@ public class OOP {
     Shape c = new Circle("Red", 5);
     Shape r = new Rectangle("Blue", 4, 6);
     
-    // B1: Unified Collections: Group Different Types Together - Cùng Kiểu Shape -> List | Khác Kiểu -> Ko List Đc
+    // B1: Unified Collections: Group Different Types Together - Cùng Kiểu Shape -> List | Khác Kiểu -> Ko List Dc
     List<Shape> shapes = new ArrayList<>();
     shapes.add(new Circle("Red", 5));
     shapes.add(new Rectangle("Blue", 4, 6));
@@ -158,13 +158,13 @@ public class OOP {
 
 /*
 Java Chỉ Cho Kế Thừa Từ 1 Class Nhưng Nhiều Interface
-Interface Chỉ Chứa Methods & Constants + Ko Đc Phép Chứa Properties
+Interface Chỉ Chứa Methods & Constants + Ko Dc Phép Chứa Properties
 
 Dùng Abstract Method Khi Muốn Bắt Lớp Con Phải Override/Implement Nhưng Lớp Con Đó Vẫn Cần Thừa Hưởng Properties & Concrete Methods Khác Từ Lớp Cha
 Dùng Interface Method Khi Chỉ Thuần Túy Muốn Đặt Ra Contract + Ko Liên Quan Gì Đến Property Hay Class Hierarchy Của Object
 
 Lý Do Dùng Interface:
 - Giảm Sự Phụ Thuộc Trực Tiếp Giữa Các Class (Loose Coupling)
-- Giúp Class Gọi Code (Caller) Không Cần Thay Đổi Khi Hệ Thống Đc Mở Rộng Bằng Cách Thêm Class Mới
+- Giúp Class Gọi Code (Caller) Ko Cần Thay Đổi Khi Hệ Thống Dc Mở Rộng Bằng Cách Thêm Class Mới
 - Gom Nhóm Các Class Khác Nhau Dưới 1 Kiểu Dữ Liệu Chung (Interface Type) Để Quản Lý & Xử Lý Đồng Bộ Thông Qua Polymorphism
 */
