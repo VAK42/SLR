@@ -3,11 +3,11 @@
 - ReactJS
 - NextJS
 - FastAPI
+- Java
 
 ---
 
 - Python
-- Java
 
 ---
 
