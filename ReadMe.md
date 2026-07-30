@@ -4,10 +4,8 @@
 - NextJS
 - FastAPI
 - Java
-
----
-
 - Python
+- PostgreSQL
 
 ---
 
@@ -16,12 +14,11 @@
 - Kafka
 - RabbitMQ
 - Redis
-- PostgreSQL
 - Docker
 - Kubernetes
 - Terraform
 - Ansible
 - Jenkins
 - Prometheus
-- ELK
 - Grafana
+- ELK
