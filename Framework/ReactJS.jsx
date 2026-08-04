@@ -47,7 +47,11 @@ function Timer({ userId }) {
     prev Ko Bị Giới Hạn + Ko Phụ Thuộc Vào Execution Context Nào Cả + Dc React Lưu Trữ Ở Kho State Riêng Độc Lập & Cập Nhật Giá Trị Mới Nhất
     x ms Trôi Qua -> Callback Cũ Dc Gọi -> Tìm prev
     */
-    return () => clearInterval(id) // Dừng & Xóa Vĩnh Viễn -> Liên Kết Giữa Browser & Callback Bị Đứt -> Callback & Execution Context Chứa Nó Ko Còn Path Để Truy Cập -> Thu Hồi Bộ Nhớ (Garbage Collected)
+    return () => clearInterval(id)
+    /*
+    Cleanup -> Remove Reference Between Browser & Callback Function Obj (Heap < Callback < Lexical Environment < Captured Variables) -> Ko Còn Dc Browser API Nào Tham Chiếu Đến -> Thu Hồi Bộ Nhớ (Garbage Collected)
+    Execution Context Chỉ Tồn Tại Khi Dg Dc Thực Thi Ở Call Stack
+    */
   }, [])
   // Fetch + Abort Khi userId Thay Đổi Hoặc Unmount
   useEffect(() => {

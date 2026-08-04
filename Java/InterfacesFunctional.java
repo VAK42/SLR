@@ -110,7 +110,7 @@ public class InterfacesFunctional {
     String prefix = "VAK";
     Function<String, String> greeter = prefix::concat;
     System.out.println(greeter.apply(" 42"));
-    // Instance Method Reference Arbitrary Object of Type: Class::instanceMethod
+    // Instance Method Reference Arbitrary Object Of Type: Class::instanceMethod
     Function<String, String> upper = String::toUpperCase;
     System.out.println(upper.apply("vak"));
     // Constructor Reference: ClassName::new
