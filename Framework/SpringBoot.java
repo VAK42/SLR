@@ -55,21 +55,36 @@ public class SpringBootFramework {
     ApplicationContext ctx = SpringApplication.run(SpringBootFramework.class, args);
     /*
     ApplicationContext: Nơi Chứa Toàn Bộ Bean Đã Dc Khởi Tạo
-    getBeanDefinitionCount() Trả Về Số Lượng Bean Đang Dc Quản Lý
+    getBeanDefinitionCount() Return Số Lượng Bean Đang Dc Quản Lý
     */
     System.out.println(ctx.getBeanDefinitionCount());
   }
 }
 /*
-@Configuration — CGLIB Proxy Đảm Bảo Singleton
-@Configuration -> Spring Dùng CGLIB Tạo Subclass Proxy Cho Class Này -> Dù Gọi service() Nhiều Lần -> Luôn Trả Về Cùng 1 Instance (Singleton)
-Nếu Dùng @Component Thay Vì @Configuration → Ko Có Proxy → Tạo Instance Mới Mỗi Lần
+@Configuration → Spring Dùng CGLIB Tạo Subclass Proxy Cho Class Này → Call @Bean Method Many Times → Luôn Return Cùng 1 Instance (Singleton)
+* @Component | @Service | @Repository | @Controller | @RestController | @Configuration | @Bean
+  → Spring Reg Bean Vào ApplicationContext
+  → new → Ko Qua ApplicationContext → New Obj
+  → @Autowired + DI → Qua ApplicationContext → Lấy Bean Singleton
+  Use Case:
+  → Inject Bean Vào Class Khác
+  → Common Use Khi Develop App
+  → Ko Cần Tự Call @Bean Method
+  
+* @Configuration → CGLIB Proxy Intercept Internal @Bean Method Call
+  → Call service()
+  → Qua ApplicationContext
+  → Lấy Bean Singleton Instead Of New Obj
+  Use Case:
+  → Class Config Chứa Nhiều @Bean Có Dependency Lẫn Nhau
+  → Call @Bean Method Inside @Configuration Vẫn Lấy Bean Singleton
+  → Tránh New Obj Khi Call @Bean Method Directly
 */
 @Configuration
 class Config {
   /*
-  @Bean: Khai Báo Method Này Trả Về 1 Đối Tượng Sẽ Dc Spring Quản Lý
-  Method Name ("service"): Tên Bean Mặc Định Trong Container
+  @Bean: Khai Báo Method Này Trả Về 1 Obj Sẽ Dc Spring Quản Lý
+  Method Name ("service"): Tên Bean Default Trong Container
   @Bean("customService"): Tên Bean Custom Dc Thêm Vào Container
   Spring Đảm Bảo Method Này Chỉ Thực Thi 1 Lần Dù Dc Gọi Nhiều Nơi
   */
@@ -229,7 +244,6 @@ class Category {
 interface ProductRepository extends JpaRepository<Product, Long> {
   /*
   Derived Query: Spring Đọc Tên Method & Tự Sinh JPQL
-  findBy + Name + Containing + IgnoreCase
   → Select p From Product p Where Lower(p.name) Like Lower('%Name%')
   */
   List<Product> findByNameContainingIgnoreCase(String name);
