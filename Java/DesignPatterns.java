@@ -2,25 +2,107 @@ import java.util.*;
 import java.lang.reflect.*;
 
 /*
-Creational Patterns:
-- Builder: Tách Quá Trình Khởi Tạo Đối Tượng Phức Tạp (Nhiều Fields + Tham Số Tùy Chọn) Khỏi Đại Diện Của Nó -> Tránh Telescoping Constructor (Write Quá Nhiều Constructor Chồng Chéo Nhau Cho Các Tham Số Tùy Chọn)
-- Singleton: Đảm Bảo Class Chỉ Có Duy Nhất 1 Instance Trong JVM
-  + Enum Singleton: Đơn Giản Nhất + Chống Phá Khóa Bằng Reflection & Serialization
-  + Double-Checked Locking (DCL): Dùng volatile Ngăn Reordering (Khi Initialize Object Tránh Return Instance Chưa Tạo Xong) + synchronized Block
-  + Holder Singleton (Lazy Initialization-On-Demand): Thread-Safe & Lazy Load Ko Cần Lock Bằng Cách Tận Dụng Cơ Chế Load Class Của JVM
+* Creational Patterns:
+Builder: Tách Complex Obj Initialization Process (Many Fields + Optional Parameters) Ra Khỏi Class Đại Diện Của Nó → Tránh Telescoping Constructor (Too Many Constructors Với Parameters Khác Nhau)
+- Required Fields Dc Truyền Qua Builder Constructor
+- Optional Fields Dc Truyền Qua Qua Builder Methods
+- Method build() Sẽ Validate Values & Tạo Ra Obj
+- Thường Đi Kèm Immutable Obj: Fields Dc Khai Báo final + Ko Cho Mod State Sau Khi Obj Dc Khởi Tạo + Ensure Obj An Toàn Khi Shared Between Threads
+- Fluent API: Allow Chaining Many Methods Consecutively + Tăng Readability Khi Initialize Obj
 
-Behavioral Patterns:
-- Strategy: Định Nghĩa Bộ Thuật Toán + Đóng Gói Riêng Biệt + Cho Phép Thay Thế (Swap) Thuật Toán Linh Hoạt Lúc Runtime
-- Observer: Định Nghĩa Quan Hệ 1-Nhiều Giữa Các Object - Khi Subject Thay Đổi Sẽ Tự Động Thông Báo Cho Tất Cả Observers Đã Đăng Ký (Decouple)
+Singleton: Ensure Class Chỉ Có Duy Nhất 1 Instance Trong JVM → Tránh Tạo Many Objs Cùng Quản Lý 1 Resource Chung + Save Memory + Ensure Global Access Point Đến 1 Obj Duy Nhất
+- Enum Singleton:
+  + Cách Implement Singleton Đơn Giản & An Toàn Nhất Trong Java
+  + JVM Tự Ensure Enum Constant Chỉ Có 1 Instance Duy Nhất
+  + Thread-Safe Vì Enum Initialization Dc JVM Kiểm Soát
+  + Chống Reflection Attack: Reflection Có Thể Phá Private Constructor Của Normal Class Nma Java Ko Allow Reflection Tạo Instance Ms Của Enum
+  + Chống Serialization Attack: Deserialize Normal Obj Có Thể Tạo Instance Ms + Enum Có Special Serialization Mechanism + JVM Luôn Return Lại Enum Constant Ban Đầu
 
-Structural Patterns:
-- Proxy: Đại Diện (Placeholder) Kiểm Soát Quyền Truy Cập Đến Đối Tượng Gốc (Thêm Log, Transaction, Security...).
-  + JDK Dynamic Proxy: Tạo Proxy Dựa Trên Interface - Sử Dụng Java Reflection
-  + CGLIB Proxy: Tạo Proxy Bằng Cách Tạo Subclass Kế Thừa Target Class - Ko Thể Dùng Với Class/Method final
-  + Spring AOP: Default Dùng JDK Proxy Nếu Class Có Interface - Ngc Lại Dùng CGLIB
+- Double-Checked Locking:
+  + Lazy Initialization: Chỉ Tạo Instance Khi Method getInstance() Dc Call Lần Đầu + Ko Tốn Memory Khi Application Chưa Cần Sử Dụng
+  + synchronized Block: Ensure Chỉ 1 Thread Dc Quyền Initialize Instance + Ngăn Multiple Threads Tạo Ra Many Singleton Objs
+  + Double Check: Check Instance Trước Khi Lock + Check Lại Instance Sau Khi Có Lock + Avoid Lock Ở Những Lần Gọi Sau Khi Instance Đã Tồn Tại
+  + volatile: Ngăn Instruction Reordering + Ensure Visibility Between Threads
+
+- Holder Singleton (Initialization-On-Demand Holder):
+  + Tận Dụng Cơ Chế Class Loading Của JVM Để Ensure Thread-Safe
+  + Inner Holder Class: Chỉ Dc JVM Load Khi getInstance() Dc Call + Static Instance Chỉ Dc Tạo Khi Holder Class Dc Initialize
+  + Ưu Điểm: Lazy Loading + Thread-Safe + Ko Cần synchronized + Ko Cần volatile
+  + Lý Do An Toàn: JVM Ensure Class Initialization Chỉ Xảy Ra 1 Lần + Thread-Safe
+
+Factory Method: Serialize Obj Initialization Bằng Cách Tách Logic Tạo Obj Ra Khỏi Client
+- Giao Cho Subclass Decide Concrete Class Nào Sẽ Dc Instantiate
+- Client Chỉ Làm Việc Với Interface|Abstract Class + Ko Cần Bt Implementation Cụ Thể Hay Cách Obj Dc Tạo Ra
+- Giảm Coupling Giữa Caller & Concrete Classes + Dễ Mở Rộng Thêm Loại Obj Ms
+
+* Behavioral Patterns:
+Strategy: Define 1 Nhóm Algorithm Có Cùng Purpose Nhưng Different Implementation
+- Encapsulate Every Algorithm Thành 1 Individual Class Thông Qua Common Interface
+- Context Chỉ Làm Việc Vs Strategy Interface: Ko Bt Logic Bên Trong Của Algorithm + Ko Phụ Thuộc Concrete Implementation
+- Allow Swap Algorithm Linh Hoạt Trong Runtime
+- Purpose: Eliminate Conditional Statements → Tách Algorithm Khỏi Business Logic + Dễ Thêm Algorithm Ms Mà Ko Mod Existing Code
+- Sử Dụng Composition Thay Vì Inheritance + Behavior Có Thể Thay Đổi Dynamic Lúc Runtime
+
+Observer: Define Quan Hệ One-To-Many Between Subject & Nhiều Observers
+- Khi Subject Thay Đổi State Hoặc Có Event Xảy Ra → Tự Động Notify Tất Cả Observers Đã Subscribe
+- Subject: Quản Lý Danh Sách Observer + Allow Register|Remove Observer + Trigger Notification Khi Có Change
+- Observer: Reg Nhận Event + Xử Lý Logic Khi Nhận Notification
+- Purpose: Giảm Coupling Between Publisher & Subscriber + Publisher Ko Cần Bt Observer Là Ai + Có Thể Thêm Observer Ms Mà Ko Mod Publisher
+- EventBus: Đóng Vai Trò Broker Trung Gian Between Publisher & Subscriber + Publisher Chỉ Publish Event + Subscriber Tự Subscribe Event Mà Nó Quan Tâm
+- Decouple Hoàn Toàn Các Module + Dễ Scale Khi Thêm Feature Ms + Fault Isolation Khi 1 Subscriber Bị Lỗi
+
+Template Method: Define Skeleton Của 1 Algorithm Trong Base Class
+- Base Class Rules: Quy Định Step Order + Main Execution Flow
+- Template Method: Thường Declare final To Prevent Subclasses Mod Alg Flow
+- Abstract Methods: Represent Changeable Steps + Subclasses Override Specific Implementation
+- Purpose: Reuse Common Workflow + Avoid Code Duplication + Centralize Process Control
+- Vs Strategy: Template Method (Dùng Inheritance + Mod 1 Phần Alg + Flow Defined In Parent Class) vs Strategy (Dùng Composition + Mod Toàn Bộ Alg + Swap Runtime)
+
+Chain Of Responsibility: Chuyển Request Qua 1 Chuỗi Các Handlers Để Xử Lý Lần Lượt
+- Handler: Tự Handle Request Hoặc Forward Request Cho Next Handler (Hold Reference Đến Handler Kế Tiếp)
+- Request Flow: Request Traverses Chain Until Accept & Handle Or Reaches End Of Chain
+- Purpose: Tách Processing Steps Thành Independent Components + Avoid Monolithic Class + Dễ Add/Remove Handler Mà Ko Ảnh Hưởng Code Cũ
+- Application: Authentication Pipeline + Authorization Checking + Request Validation + Middleware Processing
+
+* Structural Patterns:
+Proxy: Tạo 1 Obj Đại Diện (Placeholder) Đứng Trước Real Obj
+- Flow: Client → Proxy → Real Obj (Client Call Proxy Thay Vì Call Direct Target)
+- Proxy Role: Control Access Permission | Bổ Sung Logic Before/After Calling Target Obj
+- Purpose: Protect Real Obj Khỏi Access Directly + Control When Obj Is Used + Add New Behavior Without Mod Original Class
+- Common Proxy Logics: Logging (Log Method Call/Input/Output) + Security (Permission Check) + Transaction (Begin/Commit/Rollback) + Cache (Avoid Heavy Resource Calls) + Lazy Initialization (Create Real Obj Only When Needed)
+
+JDK Dynamic Proxy: Java Tạo Proxy Obj Tự Động Dựa Trên Interface Using Reflection API
+- Condition: Target Class & Proxy Obj Must Implement Same Interface
+- Mechanism: Call Proxy Method → Forward Call To InvocationHandler (Add Pre-Logic + Call Real Obj Method + Add Post-Logic) → Return Result
+- InvocationHandler: Intercept All Method Calls + Receive Info: Proxy Obj, Called Method, Arguments
+- Pros: Built-in In JDK (No External Lib Needed) + Fit Interface-Based Design
+- Cons: Only Proxies Interfaces (Cannot Proxy Concrete Class Directly Or Non-Interface Methods)
+
+CGLIB Proxy: Tạo Proxy Bằng Cách Generate 1 Subclass Kế Thừa Target Class
+- Mechanism: Inheritance-Based → Override Parent Class Methods To Inject Additional Logic (Client → CGLIB Proxy Subclass → Target Class)
+- Pros: No Interface Required + Can Proxy Concrete Classes Directly
+- Cons: Cannot Proxy final Class (Cannot Subclass final Class) + Cannot Override final Method
+- Requirement: Target Class Must Allow Inheritance + Intercepted Methods Must Be Overridable
+
+Spring AOP Proxy: Use Proxy Pattern To Implement Aspect-Oriented Programming (AOP)
+- Purpose: Decouple Cross-Cutting Concerns (Transaction, Security, Logging, Caching, Monitoring) Khỏi Business Logic
+- Mechanism: Create Proxy Wrapping Original Bean & Inject Proxy → Method Call Goes Through Proxy → Run Additional Logic → Delegate To Real Bean (Original Class Unmodified)
+- Selection Strategy: Bean Has Interface → Use JDK Dynamic Proxy (Def) | Bean Has No Interface → Use CGLIB Proxy
+- Benefits: Business Class Clean From Boilerplate Concerns + Reduce Code Duplication + Increase App Modularity
+
+Adapter: Chuyển Đổi Interface Của 1 Class Thành Interface Khác Mà Client Expect
+- Purpose: Help Classes With Incompatible Interfaces Work Together + Solve Unmodifiable Existing Class Constraints
+- Mechanism: Call Adapter Via Target Interface → Adapter Translate Request To Existing Class Interface → Existing Class Execute Original Logic
+- Role: Translator Between 2 Different Interfaces + Intermediate Layer Connecting Incompatible Components
+- Types: Object Adapter (Composition + Hold Ref To Existing Obj - Preferred In Java) vs Class Adapter (Inheritance - Rarely Used Due To No Multiple Inheritance)
+- Preference: Priority Composition Over Inheritance To Reduce Coupling & Easily Change Implementation
+
+Decorator: Dynamically Wrap Object In Decorator Class To Add New Behavior At Runtime
+- Mechanism: Decorator Implement Same Interface As Target (Client Can't Tell Decorator From Original) + Hold Ref To Inner Obj → Method Call Run Custom Logic + Delegate To Wrapped Obj
+- Purpose: Add Features Flexibly + Avoid Subclass Explosion For Feature Combinations + Combine Behaviors At Runtime
+- Features: Use Composition + Support Chaining Multiple Decorators (Decorator A → Decorator B → Original Obj) + Each Layer Add Individual Behavior
+- Vs Proxy: Proxy Focus On Controlling Access (Security, Tx, Cache) vs Decorator Focus On Expanding Behaviors & Features
 */
-
-// Builder Pattern: Thay Vì Write Nhiều Contructors Vs Nhiều Args Khác Nhau -> Write 1 Static Class Có 1 Method (Constructor) Chứa Các Compulsory Fields + Nhiều Methods Chứa Các Optional Fields
 class HttpRequest {
   private final String method;
   private final String url;
@@ -61,24 +143,33 @@ class HttpRequest {
   }
 }
 
-// Singleton Pattern: Đảm Bảo Chỉ Có Duy Nhất 1 Instance Của Class Trong Suốt App Lifecycle
-/*
-Enum Singleton: Đơn Giản Nhất
-- Chống Lại Reflection Attack (Tấn Công Phá Khóa Private Constructor Bằng Reflection API) - Vì Java Cấm Dùng Reflection Để Tạo Instance Của Enum
-- Chống Lại Serialization Attack (Khi Write & Read Object Ra File Rồi Read Lại Sẽ Sinh Ra Instance Mới) - Vì Java Có Cơ Chế Serialization Đặc Biệt Dành Riêng Cho Enum Để Luôn Return Đúng Constant Ban Đầu
-*/
+interface Notification {
+  void send(String message);
+}
+class EmailNotification implements Notification {
+  public void send(String message) { System.out.println("Sending Email: " + message); }
+}
+class SmsNotification implements Notification {
+  public void send(String message) { System.out.println("Sending SMS: " + message); }
+}
+abstract class NotificationFactory {
+  public abstract Notification createNotification();
+  public void notifyUser(String msg) {
+    Notification n = createNotification();
+    n.send(msg);
+  }
+}
+class EmailFactory extends NotificationFactory {
+  public Notification createNotification() { return new EmailNotification(); }
+}
+class SmsFactory extends NotificationFactory {
+  public Notification createNotification() { return new SmsNotification(); }
+}
+
 enum EnumSingleton {
   INSTANCE;
   public void doSomething() { System.out.println("EnumSingleton Work"); }
 }
-
-/*
-Double-Checked Locking (DCL) Singleton: Thread-Safe + Lazy Init + High Performance
-- synchronized Block: Chỉ Lock Khi instance Chưa Tạo (Tránh Bottleneck Hơn So Với Method-Level synchronized)
-- volatile:
-  + Ngăn Instruction Reordering: CPU Có Thể Đảo Lệnh Khởi Tạo (Cấp Vùng Nhớ -> Gán Reference -> Chạy Constructor) Khiến Thread Khác Lấy Phải Đối Tượng Rỗng -> volatile Ép Chạy Constructor Xong Ms Dc Gán Reference
-  + Đảm Bảo Visibility: Ép Update Value instance Ngay Lập Tức Từ CPU Cache Về RAM Để Các Threads Khác Thấy Luôn
-*/
 final class DclSingleton {
   private static volatile DclSingleton instance;
   private DclSingleton() {}
@@ -93,12 +184,6 @@ final class DclSingleton {
     return instance;
   }
 }
-
-/*
-Initialization-On-Demand Holder Singleton: Thread-Safe + Lazy Init + Lock-Free
-- Cơ Chế: Class Con Holder Chỉ Dc JVM Load Vào Bộ Nhớ Khi Hàm getInstance() Dc Gọi Lần Đầu (Lazy)
-- Lock-Free: Tận Dụng Cơ Chế Load Class Của JVM Luôn Đảm Bảo Thread-Safe Tự Nhiên Ở Tầng Hệ Thống Mà Ko Cần Dùng Khóa synchronized
-*/
 final class HolderSingleton {
   private HolderSingleton() {}
   private static class Holder {
@@ -109,7 +194,39 @@ final class HolderSingleton {
   }
 }
 
-// Strategy Pattern
+interface ModernPrinter {
+  void print(String text);
+}
+class LegacyPrinter {
+  public void printOldStyle(String text) { System.out.println("Legacy Print: " + text); }
+}
+class PrinterAdapter implements ModernPrinter {
+  private final LegacyPrinter legacyPrinter;
+  public PrinterAdapter(LegacyPrinter legacyPrinter) { this.legacyPrinter = legacyPrinter; }
+  @Override
+  public void print(String text) { legacyPrinter.printOldStyle(text); }
+}
+
+interface Coffee {
+  double getCost();
+  String getDescription();
+}
+class SimpleCoffee implements Coffee {
+  public double getCost() { return 2.0; }
+  public String getDescription() { return "Simple Coffee"; }
+}
+abstract class CoffeeDecorator implements Coffee {
+  protected final Coffee decoratedCoffee;
+  public CoffeeDecorator(Coffee coffee) { this.decoratedCoffee = coffee; }
+  public double getCost() { return decoratedCoffee.getCost(); }
+  public String getDescription() { return decoratedCoffee.getDescription(); }
+}
+class MilkDecorator extends CoffeeDecorator {
+  public MilkDecorator(Coffee coffee) { super(coffee); }
+  @Override public double getCost() { return super.getCost() + 0.5; }
+  @Override public String getDescription() { return super.getDescription() + " + Milk"; }
+}
+
 @FunctionalInterface
 interface PaymentStrategy {
   void pay(int amount);
@@ -122,14 +239,6 @@ class ShoppingCart {
   }
 }
 
-/*
-Observer Pattern (Generic Event Bus): Quan Hệ 1-Many Between Objects
-- Mục Tiêu: Khi Có Event Phát Ra -> Tự Động Notify Cho Tất Cả Subscribers (Decouple Hoàn Toàn Publisher & Subscriber)
-
-- EventBus: Làm Broker Trung Gian Điều Phối
-Thay Vì Call Directly Theo Đường Thẳng (VD: OrderService -> MailService -> InventoryService -> AuditService) -> Kết Dính Chặt Chẽ -> Thì Nay Tất Cả Làm Việc Qua EventBus
-Khi MailService Hỏng Hoặc Thêm SmsService Thì Ko Cần Phải Đụng Vào Code Của OrderService (Fault Isolation & Dễ Mở Rộng)
-*/
 @FunctionalInterface
 interface Observer<T> {
   void onEvent(String eventType, T data);
@@ -137,21 +246,54 @@ interface Observer<T> {
 class EventBus<T> {
   private final Map<String, List<Observer<T>>> listeners = new HashMap<>();
   public void subscribe(String eventType, Observer<T> observer) {
-    listeners.computeIfAbsent(eventType, k -> new ArrayList<>()).add(observer);
+    listeners.computeIfAbsent(eventType, k → new ArrayList<>()).add(observer);
   }
   public void publish(String eventType, T data) {
-    listeners.getOrDefault(eventType, List.of()).forEach(obs -> obs.onEvent(eventType, data));
+    listeners.getOrDefault(eventType, List.of()).forEach(obs → obs.onEvent(eventType, data));
   }
 }
 
-/*
-Proxy Pattern: Đại Diện Cho 1 Target Object Để Kiểm Soát Truy Cập Hoặc Bổ Sung Logic (Spring AOP & @Transactional Core)
-- Hoạt Động: Guard Đứng Trước Target - Thay Vì Gọi Trực Tiếp Target -> Client Gọi Qua Proxy -> Proxy Sẽ Tự Động Xử Lý Thêm Các Logic Trước & Sau (VD: Begin/Commit Transaction, Log, Security, Cache) Trc Khi Chuyển Tiếp Đến Target
-- Phân Loại:
-  + JDK Dynamic Proxy: Tạo Proxy Dựa Trên Interface Của Target Class - Sử Dụng Java Reflection - Cần Interface Để Cả Target + Proxy Cùng Chung Kiểu - Do Proxy Đã Kế Thừa Proxy Class Của JDK -> Ko Thể Kế Thừa Target Class
-  + CGLIB Proxy: Tạo Proxy Bằng Cách Tạo Subclass Kế Thừa Target Class - Ko Thể Dùng Cho Class/Method final (Do Ko Thể Kế Thừa/Override) - Trực Tiếp Kế Thừa Target Class - Nhưng Vì Dùng extends/override -> Target Class & Methods Ko Dc final
-  + Spring AOP: Default Dùng JDK Dynamic Proxy Nếu Class Có Interface - Ngược Lại Dùng CGLIB
-*/
+abstract class DataMiner {
+  public final void mineData(String path) {
+    openFile(path);
+    extractData();
+    closeFile();
+  }
+  protected abstract void openFile(String path);
+  protected abstract void extractData();
+  private void closeFile() { System.out.println("Closed File Resource"); }
+}
+class PdfDataMiner extends DataMiner {
+  protected void openFile(String path) { System.out.println("Opening PDF: " + path); }
+  protected void extractData() { System.out.println("Extracting PDF Text"); }
+}
+
+abstract class Handler {
+  private Handler next;
+  public Handler linkWith(Handler next) { this.next = next; return next; }
+  public abstract boolean handle(String request);
+  protected boolean handleNext(String request) {
+    if (next == null) return true;
+    return next.handle(request);
+  }
+}
+class AuthHandler extends Handler {
+  public boolean handle(String request) {
+    if (!request.contains("Auth")) {
+      System.out.println("AuthHandler: Failed");
+      return false;
+    }
+    System.out.println("AuthHandler: Passed");
+    return handleNext(request);
+  }
+}
+class RoleHandler extends Handler {
+  public boolean handle(String request) {
+    System.out.println("RoleHandler: Passed");
+    return handleNext(request);
+  }
+}
+
 interface DatabaseService {
   void query(String sql);
 }
@@ -185,7 +327,6 @@ class CglibProxySimulator extends UserPaymentService {
 
 public class DesignPatterns {
   public static void main(String[] args) throws Exception {
-    // Builder
     try {
       HttpRequest req = new HttpRequest.Builder("GET", "http://google.com")
         .header("Content-Type", "application/json")
@@ -196,27 +337,29 @@ public class DesignPatterns {
     } catch (IllegalArgumentException e) {
       System.out.println("Builder Validation: " + e.getMessage());
     }
-
-    // Singleton
+    NotificationFactory factory = new EmailFactory();
+    factory.notifyUser("Hola!");
     EnumSingleton.INSTANCE.doSomething();
     System.out.println("DCL Same: " + (DclSingleton.getInstance() == DclSingleton.getInstance()));
-    System.out.println("Holder Same: " + (HolderSingleton.getInstance() == HolderSingleton.getInstance()));
-
-    // Strategy
+    System.out.println("HLD Same: " + (HolderSingleton.getInstance() == HolderSingleton.getInstance()));
+    ModernPrinter printer = new PrinterAdapter(new LegacyPrinter());
+    printer.print("Adapter Modern Message");
+    Coffee coffee = new MilkDecorator(new SimpleCoffee());
+    System.out.println("Decorator Coffee: " + coffee.getDescription() + " | CST: $" + coffee.getCost());
     ShoppingCart cart = new ShoppingCart();
-    cart.setPaymentStrategy(amt -> System.out.println("Paid With Visa: " + amt));
+    cart.setPaymentStrategy(amt -> System.out.println("Paid With VISA: " + amt));
     cart.checkout(100);
     cart.setPaymentStrategy(amt -> System.out.println("Paid With Momo: " + amt));
     cart.checkout(200);
-
-    // Observer (Event Bus)
     EventBus<String> bus = new EventBus<>();
-    bus.subscribe("order", (type, data) -> System.out.println("Email Service: Notification for " + data));
+    bus.subscribe("order", (type, data) -> System.out.println("Email Service: NTF" + data));
     bus.subscribe("order", (type, data) -> System.out.println("Audit Service: Logged " + data));
     bus.publish("order", "Order Confirmed");
-
-    // Proxy
-    // JDK Dynamic Proxy
+    DataMiner miner = new PdfDataMiner();
+    miner.mineData("doc.pdf");
+    Handler chain = new AuthHandler();
+    chain.linkWith(new RoleHandler());
+    chain.handle("RequestWithAuth");
     DatabaseService realDb = new DatabaseServiceImpl();
     DatabaseService proxyDb = (DatabaseService) Proxy.newProxyInstance(
       DatabaseService.class.getClassLoader(),
@@ -224,8 +367,6 @@ public class DesignPatterns {
       new TransactionHandler(realDb)
     );
     proxyDb.query("SELECT * FROM users");
-
-    // CGLIB Proxy Simulation
     UserPaymentService realPayment = new UserPaymentService();
     UserPaymentService proxyPayment = new CglibProxySimulator(realPayment);
     proxyPayment.pay(500);

@@ -36,8 +36,8 @@ class ItemResponse(BaseModel):
   price: float
 
 # Path Param: {itemId} | Query Param: includeTax
-# /items/42 -> includeTax = False
-# /items/42?includeTax=true -> includeTax = True
+# /items/42 → includeTax = False
+# /items/42?includeTax=true → includeTax = True
 @app.get("/items/{itemId}", response_model=ItemResponse)
 async def getItem(itemId: int, includeTax: bool = False):
   price = 9.99
@@ -77,7 +77,7 @@ class UserResponse(BaseModel):
 
 # Depends(): Reusable Dependencies
 # Dùng return Khi Cần Lấy Giá Trị & Ko Cần Dọn Dẹp
-# Dùng yield Khi Cần Quản Lý Vòng Đời - Khai Báo -> Sử Dụng -> Giải Phóng
+# Dùng yield Khi Cần Quản Lý Vòng Đời - Khai Báo → Sử Dụng → Giải Phóng
 class Database:
   def query(self, table: str) -> list:
     return [{"id": 1, "table": table}]

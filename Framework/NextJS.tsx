@@ -12,7 +12,7 @@ error.tsx: Bộ Lọc Lỗi (Error Boundary) Cho Riêng Phân Đoạn (Segment) 
 
 Server Component (Mặc Định): Fetch Data Trực Tiếp + Ko Gửi Mã Nguồn JS Về Trình Duyệt + Ko Thể Dùng useState/useEffect/Browser APIs
 Client Component ("use client"): Component Chạy Trên Trình Duyệt + Dùng useState/useEffect + Sử Dụng Dc Các Web APIs
-Props Server -> Client: Bắt Buộc Phải Định Dạng Dc (Serializable) & Ko Truyền Dc Function/Class Instance
+Props Server → Client: Bắt Buộc Phải Định Dạng Dc (Serializable) & Ko Truyền Dc Function/Class Instance
 Quy Tắc Vận Hành: Giữ Client Components Ở Mức Lá Cuối Cùng (Leaf Nodes) Để Giảm Kích Thước JS Bundle Cho Trình Duyệt
 
 cache: "force-cache" (Mặc Định): Lưu Cache Vô Hạn (Tương Đương SSG - Static Site Generation)
@@ -46,7 +46,7 @@ NextResponse.rewrite: Trả Về Nội Dung Từ URL Khác Nhưng Giữ Nguyên 
 
 next/image: Tự Động Định Dạng WebP/AVIF + Lazy Load Ảnh + Ngăn Ngừa Hiện Tượng Lệch Giao Diện
 next/font: Tự Động Self-Host Fonts Từ Lúc Build + Tránh Lỗi FOUT - Flash Of Unstyled Text + Ko Cần Tải Font Từ Google CDN
-next/dynamic: Phân Tách Code -> Tải Component Khi Cần Thiết Để Giảm Kích Thước Bundle Ban Đầu
-priority: Thiết Lập Cho Ảnh LCP - Largest Contentful Paint -> Để Load Trước Ngay Lập Tức -> Tắt Lazy Load
+next/dynamic: Phân Tách Code → Tải Component Khi Cần Thiết Để Giảm Kích Thước Bundle Ban Đầu
+priority: Thiết Lập Cho Ảnh LCP - Largest Contentful Paint → Để Load Trước Ngay Lập Tức → Tắt Lazy Load
 ssr: false: Cấu Hình Component Client-Only + Bỏ Qua SSR Cho Các Thư Viện Vẽ Biểu Đồ, Bản Đồ
 */

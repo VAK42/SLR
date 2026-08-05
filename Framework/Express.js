@@ -15,12 +15,12 @@ app.use((req, res, next) => {
   next() // Chuyền Control Sang Middleware Tiếp Theo
   /*
   Nếu Ko Dùng next() Thì Tuy Hàm Đã Chạy Xong Nhưng Socket Mạng (TCP Connection) Vẫn Mở
-  Connection Ở Trạng Thái Pending -> Client Đợi Cho Đến Khi Timeout
+  Connection Ở Trạng Thái Pending → Client Đợi Cho Đến Khi Timeout
   */
 })
 
 const router = express.Router()
-// .param -> Preprocess :userId Cho Tất Cả Routes Có :userId Trong router
+// .param → Preprocess :userId Cho Tất Cả Routes Có :userId Trong router
 router.param("userId", async (req, res, next, id) => {
   const parsedId = parseInt(id)
   if (isNaN(parsedId)) {
@@ -29,13 +29,13 @@ router.param("userId", async (req, res, next, id) => {
   req.userId = parsedId // Đính Kèm Vào req Để Handler Dùng
   next()
 })
-// .route -> Chaining Methods Trên Cùng Path — Tránh Lặp Lại
+// .route → Chaining Methods Trên Cùng Path — Tránh Lặp Lại
 router.route("/users/:userId")
   .get(async (req, res, next) => {
     try {
       res.json({ id: req.userId, name: "User" })
     } catch (err) {
-      next(err) // Skip Tất Cả Normal Middleware -> Forward Tới Error Handler
+      next(err) // Skip Tất Cả Normal Middleware → Forward Tới Error Handler
     }
   })
   .put(async (req, res, next) => {
@@ -77,7 +77,7 @@ app.get("/stream", (req, res) => {
 // Error Middleware Phải Có 4 Params (err, req, res, next) & Là Middleware Cuối Cùng
 class ValidationError extends Error {
   constructor(message, field) {
-    // super(): Ủy Quyền Cho Lớp Cha Tạo Ra Đối Tượng this -> Lớp Con Lấy Đối Tượng this Đó Để Đắp Thêm Các Thuộc Tính Của Riêng Mình
+    // super(): Ủy Quyền Cho Lớp Cha Tạo Ra Đối Tượng this → Lớp Con Lấy Đối Tượng this Đó Để Đắp Thêm Các Thuộc Tính Của Riêng Mình
     super(message)
     this.name = "ValidationError"
     this.field = field
@@ -87,12 +87,12 @@ class ValidationError extends Error {
 // asyncHandler — Wrap Async Route Để Tự Động Forward Error
 const asyncHandler = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 /*
-NodeJS Đơn Luồng -> Chạy JS Main Thread
-I/O Tasks Dc Giao Cho OS/libuv -> Đẩy Kết Quả Vào Event Loop Khi Hoàn Thành -> Event Loop Đưa Callback Về JS Main Thread Xử Lý Nốt
+NodeJS Đơn Luồng → Chạy JS Main Thread
+I/O Tasks Dc Giao Cho OS/libuv → Đẩy Kết Quả Vào Event Loop Khi Hoàn Thành → Event Loop Đưa Callback Về JS Main Thread Xử Lý Nốt
 JS Runtime Environment: Call Stack + Microtask/Macrotask + Event Loop
-Single Thread: Chỉ Vận Hành Call Stack - Nơi Biên Dịch/Chạy Code JS Đồng Bộ -> Thực Thi Duy Nhất 1 Dòng Code Ở Đỉnh Stack Tại 1 Thời Điểm
-Queues: Nơi Lưu Trữ Callbacks Chờ Trong RAM -> Ko Tự Thực Thi Code + Chỉ Là Danh Sách Xếp Hàng Chờ
-Event Loop: Bộ Điều Phối Chạy Liên Tục + Chờ Call Stack Trống -> Đẩy Callbacks Từ Queues Lên Call Stack Để Single Thread Xử Lý Nốt
+Single Thread: Chỉ Vận Hành Call Stack - Nơi Biên Dịch/Chạy Code JS Đồng Bộ → Thực Thi Duy Nhất 1 Dòng Code Ở Đỉnh Stack Tại 1 Thời Điểm
+Queues: Nơi Lưu Trữ Callbacks Chờ Trong RAM → Ko Tự Thực Thi Code + Chỉ Là Danh Sách Xếp Hàng Chờ
+Event Loop: Bộ Điều Phối Chạy Liên Tục + Chờ Call Stack Trống → Đẩy Callbacks Từ Queues Lên Call Stack Để Single Thread Xử Lý Nốt
 */
 app.get("/items/:id", asyncHandler(async (req, res) => {
   const id = parseInt(req.params.id)
@@ -114,10 +114,10 @@ app.use((err, req, res, next) => {
 
 /*
 JWT: Header.Payload.Signature
-Header: Chứa Metadata Về Token -> Thường Có alg (HS256, RS256, ...) + typ (JWT)
-Payload: Chứa Thông Tin Muốn Lưu Trữ -> Thường Có Thông Tin Người Dùng, Hệ Thống...
+Header: Chứa Metadata Về Token → Thường Có alg (HS256, RS256, ...) + typ (JWT)
+Payload: Chứa Thông Tin Muốn Lưu Trữ → Thường Có Thông Tin Người Dùng, Hệ Thống...
 Signature: Đảm Bảo Token Ko Bị Chỉnh Sửa Trên Đường Đi - alg(Header (Base64) + Payload (Base64) + Secret Key)
-JWT Token Ở Client Hoàn Toàn Giải Mã Dc Do Base64Url Ko Phải Mã Hóa Bảo Mật -> Ko Lưu Thông Tin Nhạy Cảm
+JWT Token Ở Client Hoàn Toàn Giải Mã Dc Do Base64Url Ko Phải Mã Hóa Bảo Mật → Ko Lưu Thông Tin Nhạy Cảm
 Nên Dùng Refresh Token Để Cấp Lại Access Token Mới + Set Access Token Expiration Ngắn Hạn
 */
 import jwt from "jsonwebtoken"

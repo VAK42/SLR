@@ -1,10 +1,10 @@
 import sys
 import copy
 
-# Variables: Labels Bound To Objects In Heap
-# id() -> Retrieve Memory Address
-# is -> Compare Memory Address
-# == -> Compare Value
+# Variables: Labels Bound To Objs In Heap
+# id() → Retrieve Memory Address
+# is → Compare Memory Address
+# == → Compare Value
 a = [1, 2]
 b = a
 b.append(4)
@@ -21,8 +21,8 @@ strA, strB = 'K42', 'K42'
 strX, strY = 'VAK ' + '42', 'VAK 42'
 print(strA is strB, strX is strY) # True False
 
-# Shallow Copy: Clone Outer Layer Only -> Share Inner Nested Objects
-# Deep Copy: Clone All Layers -> Create Independent Copies Of Inner Objects
+# Shallow Copy: Clone Outer Layer Only → Share Inner Nested Objs
+# Deep Copy: Clone All Layers → Create Independent Copies Of Inner Objs
 original = [1, [2, 0], 4]
 shallow = original.copy()
 deep = copy.deepcopy(original)
@@ -30,7 +30,7 @@ original[0] = 99
 original[1].append(99)
 print(original, shallow, deep)
 
-# Reference Counting: Track Total Pointers To Object (+1 Temporary Reference Created By getrefcount Itself)
+# Reference Counting: Track Total Pointers To Obj (+1 Temporary Reference Created By getrefcount Itself)
 refList = [1, 2, 4]
 print(sys.getrefcount(refList)) # 2
 alias = refList

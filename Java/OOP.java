@@ -122,8 +122,8 @@ public class OOP {
   // Reusable Code: Write 1 Hàm Nhận Shape (Cha) Để Dùng Chung Cho Mọi Lớp Con
   public static void showArea(Shape s) {
     /*
-    Có Polymorphism -> Code Tái Sử Dụng Dc (showArea Nhận Bất Cứ Subclass Nào Của Shape)
-    Ko Có Polymorphism -> Phải Write Hàm Riêng Cho Từng Subclass (showAreaCircle, showAreaRectangle) -> Lặp Code
+    Có Polymorphism → Code Tái Sử Dụng Dc (showArea Nhận Bất Cứ Subclass Nào Của Shape)
+    Ko Có Polymorphism → Phải Write Hàm Riêng Cho Từng Subclass (showAreaCircle, showAreaRectangle) → Lặp Code
     */
     System.out.println("Area: " + s.area());
   }
@@ -133,7 +133,7 @@ public class OOP {
     Shape c = new Circle("Red", 5);
     Shape r = new Rectangle("Blue", 4, 6);
     
-    // B1: Unified Collections: Group Different Types Together - Cùng Kiểu Shape -> List | Khác Kiểu -> Ko List Dc
+    // B1: Unified Collections: Group Different Types Together - Cùng Kiểu Shape → List | Khác Kiểu → Ko List Dc
     List<Shape> shapes = new ArrayList<>();
     shapes.add(new Circle("Red", 5));
     shapes.add(new Rectangle("Blue", 4, 6));

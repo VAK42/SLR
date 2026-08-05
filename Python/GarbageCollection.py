@@ -35,8 +35,8 @@ print(gc.isenabled())    # False
 gc.enable()
 print(gc.isenabled())    # True
 
-# weakref.ref(): Access Object Without Increasing Reference Count
-# WeakValueDictionary: Cache Auto-Clears Entries When Strong References Are Deleted
+# weakref.ref(): Access Obj Without Increasing Reference Count
+# WeakValueDictionary: Cache Auto-Clear Entries When Strong References Are Deleted
 class Resource:
   def __init__(self, resId): self.resId = resId
   def __repr__(self): return f'Resource({self.resId})'

@@ -2,7 +2,7 @@ import java.util.function.*;
 import java.util.*;
 /*
 Interface:
-Abstract Method: Phương Thức Khai Báo Ko Có Phần Thân -> Bắt Buộc Subclass Phải Implement
+Abstract Method: Phương Thức Khai Báo Ko Có Phần Thân → Bắt Buộc Subclass Phải Implement
 Default Method: Phương Thức Có Phần Thân Mặc Định Giúp Bổ Sung Tính Năng Mới Mà Ko Làm Lỗi Các Class Kế Thừa Trước Đó
 Static Method: Phương Thức Tĩnh Thuộc Về Chính Interface Dùng Để Write Utility Methods
 */
@@ -27,36 +27,36 @@ interface Repository<T, TId> {
 
 /*
 Functional Interface: Interface Chỉ Chứa Duy Nhất 1 Abstract Method
--> Làm Target Type Để Java Compiler Ánh Xạ Biểu Thức Lambda/Method Reference Vào - Vì Lambda Ko Có Tên Method Nên Interface Bắt Buộc Chỉ Có 1 Abstract Method Để Compiler Ánh Xạ Chính Xác
+→ Làm Target Type Để Java Compiler Ánh Xạ Biểu Thức Lambda/Method Reference Vào - Vì Lambda Ko Có Tên Method Nên Interface Bắt Buộc Chỉ Có 1 Abstract Method Để Compiler Ánh Xạ Chính Xác
 Các Built-In Functional Interfaces Phổ Biến:
-+ Predicate: Nhận T -> Trả Về boolean -> Kiểm Tra Điều Kiện
-+ Function: Nhận T -> Trả Về R -> Biến Đổi Dữ Liệu
-+ Consumer: Nhận T -> Ko Trả Về Giá Trị void -> Thực Thi Hành Động
-+ Supplier: Ko Nhận Tham Số -> Trả Về T -> Cung Cấp Dữ Liệu -> Lazy Evaluation
-+ BiFunction: Nhận T & U -> Trả Về R -> Hàm 2 Tham Số
-+ UnaryOperator: Nhận T -> Trả Về T -> Biến Đổi Dữ Liệu Cùng Kiểu
-+ BinaryOperator: Nhận T & T -> Trả Về T -> Phép Toán Gộp Cùng Kiểu
++ Predicate: Nhận T → Trả Về boolean → Kiểm Tra Điều Kiện
++ Function: Nhận T → Trả Về R → Biến Đổi Dữ Liệu
++ Consumer: Nhận T → Ko Trả Về Giá Trị void → Thực Thi Hành Động
++ Supplier: Ko Nhận Tham Số → Trả Về T → Cung Cấp Dữ Liệu → Lazy Evaluation
++ BiFunction: Nhận T & U → Trả Về R → Hàm 2 Tham Số
++ UnaryOperator: Nhận T → Trả Về T → Biến Đổi Dữ Liệu Cùng Kiểu
++ BinaryOperator: Nhận T & T → Trả Về T → Phép Toán Gộp Cùng Kiểu
 
-Lambda Expression: (arg) -> { body }
+Lambda Expression: (arg) → { body }
 Là Cách Triển Khai Nhanh + Ngắn Gọn Cho Functional Interface Thay Thế Cho Anonymous Class
-VD: Nếu Ko Dùng Lambda -> Phải Write Anonymous Class/Concrete Class Để Initialize Object Bọc Lấy Method - Vì Java Bắt Buộc Mọi Hành Động Phải Nằm Trong Object (Lưu Reference Ở Stack + Object Ở Heap + Bytecode Ở Metaspace)
+VD: Nếu Ko Dùng Lambda → Phải Write Anonymous Class/Concrete Class Để Initialize Obj Bọc Lấy Method - Vì Java Bắt Buộc Mọi Hành Động Phải Nằm Trong Obj (Lưu Ref Ở Stack + Obj Ở Heap + Bytecode Ở Metaspace)
 Advantages:
 + Gọn + Tập Trung Vào Logic Muốn Xử Lý Thay Vì Boilerplate Code Cồng Kềnh
-+ Tối Ưu Hiệu Năng: Dùng Cơ Chế invokedynamic Khi Run Để Initialize Thay Vì Sinh File .class Rác -> Save RAM & Bộ Nhớ
-* Compiler Ko Sinh File .class Cho Lambda Mà Chỉ Đặt Lệnh invokedynamic -> JVM Dùng LambdaMetafactory Để Sinh Class Ẩn Trực Tiếp Trong RAM/Metaspace -> Giảm Dung Lượng File Jar & Giảm Tải Cho ClassLoader
++ Tối Ưu Hiệu Năng: Dùng Cơ Chế invokedynamic Khi Run Để Initialize Thay Vì Sinh File .class Rác → Save RAM & Bộ Nhớ
+* Compiler Ko Sinh File .class Cho Lambda Mà Chỉ Đặt Lệnh invokedynamic → JVM Dùng LambdaMetafactory Để Sinh Class Ẩn Trực Tiếp Trong RAM/Metaspace → Giảm Dung Lượng File Jar & Giảm Tải Cho ClassLoader
 + Hỗ Trợ Stream API
 + Lazy Evaluation: Kết Hợp Với Supplier Để Tránh Tính Toán/Query Nặng Khi Chưa Thực Sự Cần Thiết
-- Anonymous Class: Subclass Ko Có Defined Name & Initialize Object -> Dùng Khi Chỉ Tạo 1 Object Thực Thi/Kế Thừa Từ 1 Class/Interface Cho 1 Lần Sử Dụng Duy Nhất
+- Anonymous Class: Subclass Ko Có Defined Name & Initialize Object → Dùng Khi Chỉ Tạo 1 Object Thực Thi/Kế Thừa Từ 1 Class/Interface Cho 1 Lần Sử Dụng Duy Nhất
 
-Method Reference: ClassName::methodName | instance::methodName -> Write Lambda Gọn
+Method Reference: ClassName::methodName | instance::methodName → Write Lambda Gọn
 Static Method:
-  (x) -> Math.abs(x) | Math::abs
+  (x) → Math.abs(x) | Math::abs
 Instance Method Của Specific Object:
-  (x) -> System.out.println(x) | System.out::println
+  (x) → System.out.println(x) | System.out::println
 Instance Method Của Arbitrary Object:
-  (str) -> str.toUpperCase() | String::toUpperCase
+  (str) → str.toUpperCase() | String::toUpperCase
 Constructor:
-  () -> new ArrayList<>() | ArrayList::new
+  () → new ArrayList<>() | ArrayList::new
 */
 @FunctionalInterface
 interface Transformer<TInput, TOutput> {
@@ -82,7 +82,7 @@ public class InterfacesFunctional {
     // Predicate Test Boolean Condition
     Predicate<String> isLong = str -> str.length() > 5;
     System.out.println(isLong.test("VAK"));
-    // Function Transform T -> R
+    // Function Transform T → R
     Function<String, Integer> length = String::length;
     System.out.println(length.apply("VAK"));
     // Consumer Consume Ko Return

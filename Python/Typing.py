@@ -1,5 +1,5 @@
 from typing import List, Dict, Tuple, Optional, Union, Any, Callable
-# Dynamic Typing: Stack (Reference) -> Heap (Type + Value)
+# Dynamic Typing: Stack (Reference) → Heap (Type + Value)
 x = 42
 print(type(x).__name__)
 x = 'VAK'

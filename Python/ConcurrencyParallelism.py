@@ -21,7 +21,7 @@ workers = [threading.Thread(target=worker, args=(i,)) for i in range(2)]
 for w in workers: w.start()
 for w in workers: w.join()
 
-# Multi-Processing -> Bypass GIL For CPU-Bound Workloads
+# Multi-Processing → Bypass GIL For CPU-Bound Workloads
 def cpuTask(n):
   return sum(i ** 2 for i in range(n))
 if __name__ == '__main__':

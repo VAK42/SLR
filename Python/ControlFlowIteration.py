@@ -18,10 +18,10 @@ def findPrime(n):
   return False
 print(findPrime(7), findPrime(9)) # True False
 
-# Iterator Protocol: Iterator (SingleUse) vs Iterable (Reusable) -> Batch Processing / Streaming
+# Iterator Protocol: Iterator (SingleUse) vs Iterable (Reusable) → Batch Processing / Streaming
 # Iterator: 
-# __iter__() -> self
-# __next__() -> Value | StopIteration
+# __iter__() → self
+# __next__() → Value | StopIteration
 class Countdown:
   def __init__(self, start):
     self.curr = start
@@ -36,12 +36,12 @@ print(list(Countdown(2))) # [2, 1] (Pointer: Reach 0 & Exhaust)
 it = iter([10, 20])
 print(next(it), next(it)) # 10 20
 # Iterable:
-# __iter__() -> Fresh Iterator Each Call + No __next__ Needed
+# __iter__() → Fresh Iterator Each Call + No __next__ Needed
 class ReusableRange:
   def __init__(self, stop):
     self.stop = stop
   def __iter__(self):
-    return iter(range(self.stop)) # -> New Iterator Every Call
+    return iter(range(self.stop)) # → New Iterator Every Call
 r = ReusableRange(3)
 print(list(r), list(r)) # [0, 1, 2] [0, 1, 2] (Reusable Multiple Times)
 

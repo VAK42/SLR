@@ -38,9 +38,9 @@ import java.util.List;
 import java.util.Map;
 /*
 @SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
-@Configuration: Đánh Dấu Class Này Chứa Các @Bean -> Spring Đọc
+@Configuration: Đánh Dấu Class Này Chứa Các @Bean → Spring Đọc
 @EnableAutoConfiguration: Tự Đoán & Cấu Hình Dựa Trên Thư Viện Jar Có Trong Project
-@ComponentScan: Quét Toàn Bộ Package -> Tìm Class Có Annotation: @Component, @Service, @Repository, @Controller -> Đăng Ký Vào IoC Container (ApplicationContext)
+@ComponentScan: Quét Toàn Bộ Package → Tìm Class Có Annotation: @Component, @Service, @Repository, @Controller → Đăng Ký Vào IoC Container (ApplicationContext)
 */
 @SpringBootApplication
 public class SpringBootFramework {
@@ -99,7 +99,7 @@ class Config {
 @Controller: Đánh Dấu Class Xử Lý HTTP Request
 @ResponseBody: Tự Động Serialize Return Value Thành JSON (Dùng Jackson)
 ResponseEntity<T>: Cho Phép Kiểm Soát Đầy Đủ Response - HTTP Status Code + Response Headers + Response Body
-@Valid: Kích Hoạt Bean Validation Trên @RequestBody -> Ném MethodArgumentNotValidException Nếu Vi Phạm Constraint
+@Valid: Kích Hoạt Bean Validation Trên @RequestBody → Ném MethodArgumentNotValidException Nếu Vi Phạm Constraint
 */
 @RestController
 @RequestMapping("/items")
@@ -113,7 +113,7 @@ class ItemController {
   }
   /*
   @Valid: Validate ItemRequest Theo Annotation Constraint: @NotBlank + @Positive Trước Khi Vào Method
-  Ko Có @Valid -> @NotBlank + @Positive Ko Dc Kiểm Tra
+  Ko Có @Valid → @NotBlank + @Positive Ko Dc Kiểm Tra
   @RequestBody: Deserialize JSON Request Body → ItemRequest Object
   */
   @PostMapping // POST /items
@@ -230,7 +230,7 @@ class Product {
   private Long id;
   @Column(nullable = false)
   private String name;
-  // FetchType.LAZY: Chỉ Load Category Khi Thực Sự Gọi product.getCategory() -> Tránh N+1 Problem: Ko Load Dữ Liệu Thừa Khi Chỉ Cần Thông Tin Product
+  // FetchType.LAZY: Chỉ Load Category Khi Thực Sự Gọi product.getCategory() → Tránh N+1 Problem: Ko Load Dữ Liệu Thừa Khi Chỉ Cần Thông Tin Product
   @ManyToOne(fetch = FetchType.LAZY)
   private Category category;
 }
@@ -309,7 +309,7 @@ class SecurityConfig {
       CSRF Chỉ Cần Với Session-Based Auth
       */
       .csrf(c -> c.disable())
-      // STATELESS: Spring Security Ko Tạo/Dùng HTTP Session -> Mỗi Request Phải Tự Xác Thực Qua Token
+      // STATELESS: Spring Security Ko Tạo/Dùng HTTP Session → Mỗi Request Phải Tự Xác Thực Qua Token
       .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       // Phân Quyền Từng Endpoint:
       .authorizeHttpRequests(a -> a

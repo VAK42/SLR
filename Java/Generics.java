@@ -59,7 +59,7 @@ public class Generics {
   }
 
   /*
-  Wildcard (?): Integer Là Con Của Number Nhưng List<Integer> Ko Là Con Của List<Number> -> ? Để Đại Diện Cho Kiểu Dữ Liệu Ch Bt
+  Wildcard (?): Integer Là Con Của Number Nhưng List<Integer> Ko Là Con Của List<Number> → ? Để Đại Diện Cho Kiểu Dữ Liệu Ch Bt
   PECS: Producer Extends - Consumer Super
   ? extends Number: Producer - Read-Only - Chấp Nhận List Của Bất Kỳ Lớp Con Nào Của Number + Cấm Ghi
   ? super Number: Consumer - Write-Only - Chấp Nhận List Của Bất Kỳ Lớp Cha Nào Của Number + Cho Đọc Nhưng Ko An Toàn
@@ -89,7 +89,7 @@ public class Generics {
     System.out.println(strings.getClass() == integers.getClass()); // True
     // instanceof Chỉ Kiểm Tra Raw Type
     System.out.println(strings instanceof List<?>);
-    // Vì Ở Runtime JVM Ko Hề Bt Kiểu T Hay String Trong List Là Gì -> Ko Thể Dùng instanceof Để Kiểm Tra Kiểu Cụ Thể + Ko Thể new Để Initialize Object
+    // Vì Ở Runtime JVM Ko Hề Bt Kiểu T Hay String Trong List Là Gì → Ko Thể Dùng instanceof Để Kiểm Tra Kiểu Cụ Thể + Ko Thể new Để Initialize Object
     @SuppressWarnings("rawtypes")
     List raw = strings;
     @SuppressWarnings("unchecked")
@@ -97,7 +97,7 @@ public class Generics {
     // ClassCastException Xảy Ra Khi Đọc
     try {
       String value = strings.get(0);
-      // String value = (String) strings.get(0); -> Element 0: 42 (Integer) -> Failed! Java Chỉ Cast Giữa Các Lớp Cha - Con + Ko Phải Anh - Em
+      // String value = (String) strings.get(0); → Element 0: 42 (Integer) → Failed! Java Chỉ Cast Giữa Các Lớp Cha - Con + Ko Phải Anh - Em
     } catch (ClassCastException e) {
       System.out.println("ClassCastException Do Erasure: " + e.getMessage());
     }

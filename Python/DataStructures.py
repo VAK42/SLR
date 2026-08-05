@@ -3,7 +3,7 @@ import sys
 from collections import Counter, defaultdict, deque, namedtuple
 
 # List Performance & Operations
-# append() -> O(1) Amortized | insert(0) -> O(N) Shifting Elements | Slicing -> O(K)
+# append() → O(1) Amortized | insert(0) → O(N) Shifting Elements | Slicing → O(K)
 lst = []
 sAppend = time.perf_counter()
 for i in range(100_000): lst.append(i)
@@ -31,7 +31,7 @@ print(pt, x, y) # (10, 20) 10 20
 dct= {'a': 1, 'b': 2, 'c': 4}
 dct['a'] = 99
 print(dct['a'], 'b' in dct, dct.get('d', 'OK')) # 99 True OK
-# .get(key, value): Nếu Ko Có key -> Trả value
+# .get(key, value): Nếu Ko Có key → Trả value
 dA, dB = {'x': 1}, {'y': 2}
 merged = {**dA, **dB}
 print(merged) # {'x': 1, 'y': 2}
@@ -52,7 +52,7 @@ print(counter, counter.most_common(2)) # Counter({'a': 3, 'b': 2, 'c': 1}) [('a'
 counterB = Counter(['a', 'd'])
 print(counter + counterB)              # Counter({'a': 4, 'b': 2, 'c': 1, 'd': 1})
 
-# defaultdict: Auto Initialize Default Values For Missing Keys -> Prevent KeyError
+# defaultdict: Auto Initialize Default Values For Missing Keys → Prevent KeyError
 graph = defaultdict(list)
 graph['nodeA'].append('nodeB')
 print(graph['nodeA'], graph['nodeZ']) # ['nodeB'] []

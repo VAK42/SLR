@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 import math
 
 # Encapsulation
-# private -> __var | protected -> _var | public -> var | Getter -> @property | Setter -> @var.setter
+# private → __var | protected → _var | public → var | Getter → @property | Setter → @var.setter
 # Name Mangling: Prevents Subclass From Overriding Parent Private Attributes During Inheritance
 class BankAccount:
   def __init__(self, owner, balance):
@@ -22,11 +22,11 @@ acc = BankAccount('VAK', 1000)
 acc.deposit(500)
 acc.balance = 2000                 # acc.setBalance(2000)
 print(acc.balance)                 # acc.getBalance()
-print(acc._BankAccount__balance)   # Private Access -> Java: Reflection
+print(acc._BankAccount__balance)   # Private Access → Java: Reflection
 
 # Inheritance & Polymorphism
-# class Child extends Parent -> class Child(Parent)
-# super() -> super().__init__()
+# class Child extends Parent → class Child(Parent)
+# super() → super().__init__()
 class Shape:
   def __init__(self, color): self.color = color
   def area(self): raise NotImplementedError
@@ -39,7 +39,7 @@ class Dog:
   def speak(self): return 'Gow Gow'
 class Cat:
   def speak(self): return 'Meow Meow'
-# Java: Interface Animal {void speak()} -> Implements Animal
+# Java: Interface Animal {void speak()} → Implements Animal
 # Python: Duck Typing
 for animal in [Dog(), Cat()]:
   print(animal.speak())
@@ -86,7 +86,7 @@ v1, v2 = Vector(1, 2), Vector(3, 4)
 print(f'Add: {v1 + v2} | Mul: {v1 * 3} | Abs: {abs(v2):.2f} | Call: {v1(lambda x, y: x + y)}')
 
 # Descriptors Protocol (__get__, __set__, __set_name__)
-# -> Lombok / Field Validation Annotations
+# → Lombok / Field Validation Annotations
 class Validator:
   def __set_name__(self, owner, name): self.name = name
   def __get__(self, inst, owner): return inst.__dict__.get(self.name) if inst else self
@@ -100,7 +100,7 @@ p = Product(100)
 print(p.price)
 
 # Metaclasses: Intercepts & Customizes Class Creation
-# -> Reflection / Annotation Processor / Class Factory
+# → Reflection / Annotation Processor / Class Factory
 class AutoRegister(type):
   registry = {}
   def __new__(mcs, name, bases, ns):
@@ -112,7 +112,7 @@ class PluginA(Plugin): pass
 print(list(AutoRegister.registry.keys()))
 
 # ABC vs Protocol vs Abstract Class With Shared Logic
-# ABC -> public abstract class | Protocol -> public interface
+# ABC → public abstract class | Protocol → public interface
 class Repository(ABC):      # public abstract class Repository
   def __init__(self): self._cache = {}
   @abstractmethod           # abstract void _fetchRaw(String key);
@@ -125,6 +125,6 @@ class MemRepo(Repository):  # public class MemRepo extends Repository
 @runtime_checkable
 class Renderable(Protocol): # public interface Renderable { String render(); }
   def render(self) -> str: ...
-class UIWidget:             # public class UIWidget implements Renderable -> Structural Typing
+class UIWidget:             # public class UIWidget implements Renderable → Structural Typing
   def render(self): return 'WidgetUI'
 repo = MemRepo()

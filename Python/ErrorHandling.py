@@ -95,7 +95,7 @@ def doWork():
     try:
       riskyCleanup()
     except RuntimeError as cleanupErr:
-      print(cleanupErr) # Finally Exception Resolved -> Allow Try Exception To Continue
+      print(cleanupErr) # Finally Exception Resolved → Allow Try Exception To Continue
 try:
   doWork()
 except ValueError as e:
@@ -110,4 +110,4 @@ def topFunction():
   try:
     middleFunction()
   except ZeroDivisionError:
-    traceback.print_exc() # -> e.printStackTrace()
+    traceback.print_exc() # → e.printStackTrace()

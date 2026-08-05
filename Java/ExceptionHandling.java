@@ -169,7 +169,7 @@ public class ExceptionHandling {
     }
   }
 
-  // Lưu Ý: return/throw Trong finally Sẽ Override & Nuốt Chửng return/throw Trong try/catch -> Ko return/throw Trong finally Nếu Ko Cần Thiết
+  // Lưu Ý: return/throw Trong finally Sẽ Override & Nuốt Chửng return/throw Trong try/catch → Ko return/throw Trong finally Nếu Ko Cần Thiết
   static int vak = 0;
   static String Finally() {
     try {

@@ -2,9 +2,9 @@
 JDK (Java Development Kit) Chứa: javac, JRE, Development Tools
 JRE (Java Runtime Environment) Chứa: JVM + Standard Class Libraries
 JVM (Java Virtual Machine) Thực Thi Bytecode, Quản Lý Memory, Threading, GC
-Flow: .java -[javac]-> .class (Bytecode) -[JVM]-> Native Code
-JIT Compiler: Phát Hiện Hot Code Paths - Đoạn Code Dc Thực Thi Lặp Nhiều Lần -> Compile Bytecode (Dc Đọc & Chạy Bởi Interpreter) Thành Native Machine Code
-Nhiều .class Files -> Đóng Gói Thành .jar File
+Flow: .java -[javac]→ .class (Bytecode) -[JVM]→ Native Code
+JIT Compiler: Phát Hiện Hot Code Paths - Đoạn Code Dc Thực Thi Lặp Nhiều Lần → Compile Bytecode (Dc Đọc & Chạy Bởi Interpreter) Thành Native Machine Code
+Nhiều .class Files → Đóng Gói Thành .jar File
 */
 public class JVMArchitecture {
   public static int computeSquare(int input) {
@@ -16,7 +16,7 @@ public class JVMArchitecture {
   Platform Loader (Java 9+) / Extension Loader (Java 8-) - Extended JDK Classes
   Application Loader: Classpath - User Custom Classes
 
-  Delegation Model: Application -> Platform/Extension -> Bootstrap
+  Delegation Model: Application → Platform/Extension → Bootstrap
   Mỗi Loader Hỏi Parent Trước Khi Tự Load
   */
   public static void classLoading() {
@@ -49,22 +49,22 @@ public class JVMArchitecture {
   JVM Flags CLI Quan Trọng:
 
   Memory:
-  -Xms512m -> Heap Khởi Đầu 512MB
-  -Xmx2g -> Heap Tối Đa 2GB
-  -Xss256k -> Stack Size Mỗi Thread
+  -Xms512m → Heap Khởi Đầu 512MB
+  -Xmx2g → Heap Tối Đa 2GB
+  -Xss256k → Stack Size Mỗi Thread
 
   GC:
-  -XX:+UseG1GC -> Dùng G1 GC (Default Java 9+)
-  -XX:+UseZGC -> Dùng ZGC (Low-Latency)
-  -Xlog:gc* -> Bật GC Logging
+  -XX:+UseG1GC → Dùng G1 GC (Def Java 9+)
+  -XX:+UseZGC → Dùng ZGC (Low-Latency)
+  -Xlog:gc* → Turn On GC Logging
 
   JIT:
-  -Xint -> Interpreter-Only Mode (Tắt JIT)
-  -server -> JIT Aggressiveness Cao Hơn
+  -Xint → Interpreter-Only Mode (Tắt JIT)
+  -server → JIT Aggressiveness Cao Hơn
 
   Debug:
-  -ea -> Bật Assertions
-  -verbose:class -> Log Mỗi Class Dc Load
+  -ea → Bật Assertions
+  -verbose:class → Log Mỗi Class Dc Load
   */
   public static void main(String[] args) {
     classLoading();

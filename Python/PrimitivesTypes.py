@@ -29,7 +29,7 @@ prev = id(m)
 m.append(3)
 print(prev != id(m)) # False
 
-# Key (Dict) | Element (Set) -> Hashable Required
+# Key (Dict) | Element (Set) → Hashable Required
 # Hashable: Immutable (int, float, str, bytes, tuple) - tuple (Hashable Elements)
 # Unhashable: Mutable (list, dict, set, tuple) - tuple (Unhashable Elements)
 u = (4, 2)

@@ -68,7 +68,7 @@ public class ModernFeatures {
 
   /*
   Switch Expressions
-  ->: Ko Fall-Through + Ko Cần Break
+  →: Ko Fall-Through + Ko Cần Break
   yield: Return Value
   */
   enum Day { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }

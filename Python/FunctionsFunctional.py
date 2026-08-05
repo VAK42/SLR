@@ -4,11 +4,11 @@ import time
 from functools import reduce
 
 # Parameter Modes
-# / -> Must Pass By Position + No Keyword Name
-# * -> Must Pass By Keyword Name + Can Reorder
+# / → Must Pass By Position + No Keyword Name
+# * → Must Pass By Keyword Name + Can Reorder
 # Between / And *: Free To Use Keyword Name Or Not + Free To Reorder
-# *args -> Collect Extra Positional Args Into Tuple
-# **kwargs -> Collect Extra Keyword Args Into Dict
+# *args → Collect Extra Positional Args Into Tuple
+# **kwargs → Collect Extra Keyword Args Into Dict
 def registrar(userId, /, name, age, *, role, dept='Engineering'):
   return userId, name, age, role, dept
 print(registrar(1004, 42, 'VAK', role='Senior'))
@@ -17,7 +17,7 @@ def logger(*messages, **metadata):
   return messages, metadata
 print(logger('OK', 'LoadConfig', env='Prod', version='4.0'))
 
-# Scope LEGB Rule: Local -> Enclosing -> Global -> Built-in
+# Scope LEGB Rule: Local → Enclosing → Global → Built-in
 # nonlocal: Mod Enclosing Scope Var
 # global: Mod Module-Level Var
 counter = 0
@@ -40,14 +40,14 @@ def makeAdder(amount):
 addFive, addTen = makeAdder(5), makeAdder(10)
 print(addFive(4), addTen(4)) # 9 14
 print(addFive.__closure__[0].cell_contents) # 5
-# Late Binding: Loop Finished Before Call -> All Lambdas Retrieve Final i
-# -> Solution: Store Value To Unique Arg Per Function
+# Late Binding: Loop Finished Before Call → All Lambdas Retrieve Final i
+# → Solution: Store Value To Unique Arg Per Function
 funcsBad = [lambda x: x + i for i in range(3)]
 print(funcsBad[0](10), funcsBad[1](10)) # 12 12
 funcsGood = [lambda x, capture=i: x + capture for i in range(3)]
 print(funcsGood[0](10), funcsGood[1](10), funcsGood[2](10)) # 10 11 12
 
-# Decorators: Take A Function & Return A Wrapper Adding Pre/Post Logic Without Modifying Original Code
+# Decorators: Take A Function & Return A Wrapper Adding Pre/Post Logic Without Mod Original Code
 # Parameterized Decorators (@functools.wraps): Preserve Original Function Metadata (__name__, Docstrings)
 def timer(func):
   @functools.wraps(func)
@@ -73,7 +73,7 @@ def retry(maxAttempts):
 def fetch(url): return f'From:{url}'
 print(fetch('https://backend.com'))
 print(fetch.__name__)
-# timer -> retry -> fetch -> retry -> timer
+# timer → retry → fetch → retry → timer
 
 # Functional Tools (map, filter, reduce, partial, itemgetter, Comprehensions)
 nums = [1, 2, 3, 4, 5]
