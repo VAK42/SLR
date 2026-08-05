@@ -160,7 +160,7 @@ Java Chỉ Cho Kế Thừa Từ 1 Class Nhưng Nhiều Interface
 Interface Chỉ Chứa Methods & Constants + Ko Dc Phép Chứa Properties
 
 Dùng Abstract Method Khi Muốn Bắt Lớp Con Phải Override/Implement Nhưng Lớp Con Đó Vẫn Cần Thừa Hưởng Properties & Concrete Methods Khác Từ Lớp Cha
-Dùng Interface Method Khi Chỉ Thuần Túy Muốn Đặt Ra Contract + Ko Liên Quan Gì Đến Property Hay Class Hierarchy Của Object
+Dùng Interface Method Khi Chỉ Thuần Túy Muốn Đặt Ra Contract + Ko Liên Quan Gì Đến Property Hay Class Hierarchy Của Obj
 
 Lý Do Dùng Interface:
 - Giảm Sự Phụ Thuộc Trực Tiếp Giữa Các Class (Loose Coupling)

@@ -94,10 +94,10 @@ Adapter: Chuyển Đổi Interface Của 1 Class Thành Interface Khác Mà Clie
 - Purpose: Help Classes With Incompatible Interfaces Work Together + Solve Unmodifiable Existing Class Constraints
 - Mechanism: Call Adapter Via Target Interface → Adapter Translate Request To Existing Class Interface → Existing Class Execute Original Logic
 - Role: Translator Between 2 Different Interfaces + Intermediate Layer Connecting Incompatible Components
-- Types: Object Adapter (Composition + Hold Ref To Existing Obj - Preferred In Java) vs Class Adapter (Inheritance - Rarely Used Due To No Multiple Inheritance)
+- Types: Obj Adapter (Composition + Hold Ref To Existing Obj - Preferred In Java) vs Class Adapter (Inheritance - Rarely Used Due To No Multiple Inheritance)
 - Preference: Priority Composition Over Inheritance To Reduce Coupling & Easily Change Implementation
 
-Decorator: Dynamically Wrap Object In Decorator Class To Add New Behavior At Runtime
+Decorator: Dynamically Wrap Obj In Decorator Class To Add New Behavior At Runtime
 - Mechanism: Decorator Implement Same Interface As Target (Client Can't Tell Decorator From Original) + Hold Ref To Inner Obj → Method Call Run Custom Logic + Delegate To Wrapped Obj
 - Purpose: Add Features Flexibly + Avoid Subclass Explosion For Feature Combinations + Combine Behaviors At Runtime
 - Features: Use Composition + Support Chaining Multiple Decorators (Decorator A → Decorator B → Original Obj) + Each Layer Add Individual Behavior

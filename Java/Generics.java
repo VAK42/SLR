@@ -73,7 +73,7 @@ public class Generics {
     return total;
   }
   public static void copyInto(List<? super Integer> dest, List<Integer> src) {
-    dest.addAll(src); // Chỉ Ghi — Đọc Ra Chỉ Dc Object
+    dest.addAll(src); // Chỉ Ghi — Đọc Ra Chỉ Dc Obj
   }
   public static <T> void swap(List<T> list, int i, int j) {
     T temp = list.get(i);
@@ -89,7 +89,7 @@ public class Generics {
     System.out.println(strings.getClass() == integers.getClass()); // True
     // instanceof Chỉ Kiểm Tra Raw Type
     System.out.println(strings instanceof List<?>);
-    // Vì Ở Runtime JVM Ko Hề Bt Kiểu T Hay String Trong List Là Gì → Ko Thể Dùng instanceof Để Kiểm Tra Kiểu Cụ Thể + Ko Thể new Để Initialize Object
+    // Vì Ở Runtime JVM Ko Hề Bt Kiểu T Hay String Trong List Là Gì → Ko Thể Dùng instanceof Để Kiểm Tra Kiểu Cụ Thể + Ko Thể new Để Initialize Obj
     @SuppressWarnings("rawtypes")
     List raw = strings;
     @SuppressWarnings("unchecked")

@@ -79,7 +79,7 @@ class Vector:
   def __add__(self, o): return Vector(self.x + o.x, self.y + o.y) # vec1.add(vec2)
   def __mul__(self, s): return Vector(self.x * s, self.y * s)
   def __len__(self): return 2                                     # list.size()
-  def __eq__(self, o): return self.x == o.x and self.y == o.y     # public boolean equals(Object o)
+  def __eq__(self, o): return self.x == o.x and self.y == o.y     # public boolean equals(Obj o)
   def __call__(self, fn): return fn(self.x, self.y)               # Function.apply(x, y)
   def __abs__(self): return math.hypot(self.x, self.y)
 v1, v2 = Vector(1, 2), Vector(3, 4)

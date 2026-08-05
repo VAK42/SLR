@@ -121,7 +121,7 @@ public class Concurrency {
   + Future<A> + Future<B> → Future<C>
 
   allOf (~ Promise.all()): Chờ Tất Cả Future Hoàn Thành → Trả CompletableFuture<Void> → join()|get() Từng Future Để Lấy Result
-  anyOf (~ Promise.race()): Chờ Future Đầu Tiên Hoàn Thành (Success | Exception) → Trả CompletableFuture<Object>
+  anyOf (~ Promise.race()): Chờ Future Đầu Tiên Hoàn Thành (Success | Exception) → Trả CompletableFuture<Obj>
 
   thenAccept (~ Promise.then(v => {...})):
   + Consume Result Ko Return Value

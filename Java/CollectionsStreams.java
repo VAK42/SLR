@@ -145,7 +145,7 @@ public class CollectionsStreams {
   Problem Với Null: null Làm Code Khó Đọc + Dễ Quên Check → Runtime Exception: NullPointerException
   VD: user.getAddress().getCity() → Nếu address = null → NPE
 
-  Optional: Wrapper Object Có Thể Chứa:
+  Optional: Wrapper Obj Có Thể Chứa:
   + Value (Present)
   + Empty (Absent)
   → Thay Vì Return null → Return Optional<T>

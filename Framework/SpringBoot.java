@@ -114,7 +114,7 @@ class ItemController {
   /*
   @Valid: Validate ItemRequest Theo Annotation Constraint: @NotBlank + @Positive Trước Khi Vào Method
   Ko Có @Valid → @NotBlank + @Positive Ko Dc Kiểm Tra
-  @RequestBody: Deserialize JSON Request Body → ItemRequest Object
+  @RequestBody: Deserialize JSON Request Body → ItemRequest Obj
   */
   @PostMapping // POST /items
   public ResponseEntity<ItemResponse> createItem(@Valid @RequestBody ItemRequest req) {

@@ -2,7 +2,7 @@ import weakref
 import sys
 import gc
 
-# sys.getrefcount(): Total References To Object (+1 Temporary Reference Created By getrefcount Itself)
+# sys.getrefcount(): Total References To Obj (+1 Temporary Reference Created By getrefcount Itself)
 refList = [1, 2, 3]
 print(sys.getrefcount(refList)) # 2
 alias = refList

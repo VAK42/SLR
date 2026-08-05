@@ -46,14 +46,14 @@ Advantages:
 * Compiler Ko Sinh File .class Cho Lambda Mà Chỉ Đặt Lệnh invokedynamic → JVM Dùng LambdaMetafactory Để Sinh Class Ẩn Trực Tiếp Trong RAM/Metaspace → Giảm Dung Lượng File Jar & Giảm Tải Cho ClassLoader
 + Hỗ Trợ Stream API
 + Lazy Evaluation: Kết Hợp Với Supplier Để Tránh Tính Toán/Query Nặng Khi Chưa Thực Sự Cần Thiết
-- Anonymous Class: Subclass Ko Có Defined Name & Initialize Object → Dùng Khi Chỉ Tạo 1 Object Thực Thi/Kế Thừa Từ 1 Class/Interface Cho 1 Lần Sử Dụng Duy Nhất
+- Anonymous Class: Subclass Ko Có Defined Name & Initialize Obj → Dùng Khi Chỉ Tạo 1 Obj Thực Thi/Kế Thừa Từ 1 Class/Interface Cho 1 Lần Sử Dụng Duy Nhất
 
 Method Reference: ClassName::methodName | instance::methodName → Write Lambda Gọn
 Static Method:
   (x) → Math.abs(x) | Math::abs
-Instance Method Của Specific Object:
+Instance Method Của Specific Obj:
   (x) → System.out.println(x) | System.out::println
-Instance Method Của Arbitrary Object:
+Instance Method Của Arbitrary Obj:
   (str) → str.toUpperCase() | String::toUpperCase
 Constructor:
   () → new ArrayList<>() | ArrayList::new
@@ -106,11 +106,11 @@ public class InterfacesFunctional {
     // Static Method Reference: ClassName::staticMethod
     Function<Integer, Integer> staticRef = InterfacesFunctional::staticDouble;
     System.out.println(staticRef.apply(5));
-    // Instance Method Reference Specific Object: object::instanceMethod
+    // Instance Method Reference Specific Obj: Obj::instanceMethod
     String prefix = "VAK";
     Function<String, String> greeter = prefix::concat;
     System.out.println(greeter.apply(" 42"));
-    // Instance Method Reference Arbitrary Object Of Type: Class::instanceMethod
+    // Instance Method Reference Arbitrary Obj Of Type: Class::instanceMethod
     Function<String, String> upper = String::toUpperCase;
     System.out.println(upper.apply("vak"));
     // Constructor Reference: ClassName::new

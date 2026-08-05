@@ -9,27 +9,27 @@ public class MemoryGC {
   - Ko Có GC Overhead
 
   Heap (Shared):
-  - Tất Cả Object Instances & Arrays
+  - Tất Cả Obj Instances & Arrays
   - Young Generation + Old Generation
   - Managed By GC
 
   Operand Stack: 1 Vùng Nhớ Nháp Dạng LIFO Nằm Trong Mỗi Stack Frame → JVM Dùng Làm Ko Gian Tính Toán Tạm Thời Để Thực Thi Các Lệnh Bytecode
   Return Address: Special Primitive Type Chứa Address Của Chỉ Thị Bytecode Kế Tiếp
   GC Overhead: Lượng Resource Hao Tốn Cho Dọn Rác
-  Young Generation: Chứa Các Object Ms Tạo → Eden + Survivor 0 + Survivor 1 → Minor GC Dọn Nhanh Khi Đầy
-  Old Generation: Chứa Các Object Sống Sót Qua Nhiều Lần MinorGC & Object Size Lớn → Major GC/Full GC Dọn Lâu
+  Young Generation: Chứa Các Obj Ms Tạo → Eden + Survivor 0 + Survivor 1 → Minor GC Dọn Nhanh Khi Đầy
+  Old Generation: Chứa Các Obj Sống Sót Qua Nhiều Lần MinorGC & Obj Size Lớn → Major GC/Full GC Dọn Lâu
   Metaspace: Phân Vùng Nhớ Store Metadata Của Class - Nằm Trong Native Memory (RAM)
   */
   private int field = 42;          // field Sống Trên Heap Cùng Với Instance
   public int compute(int param) {
     int local = param * 2;         // param & local Sống Trên Stack Frame Của Hàm Này
-    MemoryGC obj = new MemoryGC(); // Reference 'obj' Trên Stack - Object Trên Heap
+    MemoryGC obj = new MemoryGC(); // Reference 'obj' Trên Stack - Obj Trên Heap
     return local + obj.field;
   }
 
   /*
   GC Roots & Reachability:
-  GC Root: Điểm Bắt Đầu Của Object Graph
+  GC Root: Điểm Bắt Đầu Của Obj Graph
   - Active Local Variables Trong Stack Frames
   - Static Fields
   - Active Threads
@@ -135,7 +135,7 @@ public class MemoryGC {
   Normal Reference Trong Java
   Obj Có Strong Reference Thì GC Ko Dc Phép Thu Hồi
   Obj Sống Cho Đến Khi Ko Còn Any Strong Reference Nào
-  VD: Object obj = new Object();
+  VD: Obj obj = new Obj();
 
   WeakReference:
   Khi Obj Ko Còn Strong Reference → GC Có Thể Thu Hồi
@@ -156,11 +156,11 @@ public class MemoryGC {
   Dùng Để Cleanup Native Resource Ngoài Java Heap
   VD: Native Memory, File Handle, GPU Resource
   */
-  static class ExpensiveObject {
+  static class ExpensiveObj {
     private final int id;
-    ExpensiveObject(int id) { this.id = id; }
+    ExpensiveObj(int id) { this.id = id; }
     @Override
-    public String toString() { return "ExpensiveObject(" + id + ")"; }
+    public String toString() { return "ExpensiveObj(" + id + ")"; }
     @Override
     protected void finalize() {
       System.out.println(this);
@@ -205,7 +205,7 @@ public class MemoryGC {
   /*
   * Memory Leak Patterns:
   P1: Static Collection Giữ References:
-  static final Map<String, Object> CACHE = new HashMap<>();
+  static final Map<String, Obj> CACHE = new HashMap<>();
   static: Belong To The Class → Class Metadata: Live In Metaspace & Exist Throughout App Lifetime
   HashMap: Hold Strong References → All Objs Added To The Map Remain Alive Until App Termination → Never Be Cleared
   → Solution: WeakHashMap
@@ -225,7 +225,7 @@ public class MemoryGC {
   → Solution: Phải unregister/unsubscribe
 
   P4: Thread Local Ko Dc Remove:
-  ThreadLocal<Object> local = new ThreadLocal<>(); → Nếu Ko Xóa → Thread Ko Empty → Ko Thể Reuse
+  ThreadLocal<Obj> local = new ThreadLocal<>(); → Nếu Ko Xóa → Thread Ko Empty → Ko Thể Reuse
   → Solution: Trong Thread Pool: local.remove() Sau Khi Dùng Xong
   */
   public static void main(String[] args) throws Exception {

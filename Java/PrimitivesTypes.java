@@ -1,5 +1,5 @@
 public class PrimitivesTypes {
-  // 8 Kiểu Nguyên Thủy Ko Phải Object + Dc Lưu Trực Tiếp Trên Stack
+  // 8 Kiểu Nguyên Thủy Ko Phải Obj + Dc Lưu Trực Tiếp Trên Stack
   public static void primitives() {
     byte byteVal = 127;                  // 8-bit signed: -128 → 127
     short shortVal = 32767;              // 16-bit signed
@@ -28,19 +28,19 @@ public class PrimitivesTypes {
   /*
   Autoboxing: primitive → Wrapper
   Unboxing: Wrapper → primitive
-  → Giúp Chuyển Đổi Giữa Primitive & Object → Làm Cầu Nối Đưa Primitive Types Vào Làm Việc Với Generics & Collections
+  → Giúp Chuyển Đổi Giữa Primitive & Obj → Làm Cầu Nối Đưa Primitive Types Vào Làm Việc Với Generics & Collections
   */
   public static void autoboxing() {
     // Autoboxing: Compiler Tự Gọi Integer.valueOf(100)
     Integer a = 100;
     Integer b = 100;
-    // Integer Cache: JVM Cache Integer Từ -128 To 127 → a & b Cùng Trỏ Đến Cùng Object
-    System.out.println(a == b);      // true - Cùng Object Cached
+    // Integer Cache: JVM Cache Integer Từ -128 To 127 → a & b Cùng Trỏ Đến Cùng Obj
+    System.out.println(a == b);      // true - Cùng Obj Cached
     System.out.println(a.equals(b)); // true
     Integer c = 200;
     Integer d = 200;
-    // 200 Ngoài Cache → 2 Object Khác Nhau
-    System.out.println(c == d);      // false - Khác Object
+    // 200 Ngoài Cache → 2 Obj Khác Nhau
+    System.out.println(c == d);      // false - Khác Obj
     System.out.println(c.equals(d)); // true
 
     // Unboxing: Compiler Tự Gọi a.intValue()
@@ -64,7 +64,7 @@ public class PrimitivesTypes {
     // Lưu Ý: Bad Performance Khi Nhiều Autoboxing Trong Loop
     Long total = 0L;
     for (long i = 0; i < 1000; i++) {
-      total += i; // Unbox total → Tính → Box Lại → Tạo Nhiều Object
+      total += i; // Unbox total → Tính → Box Lại → Tạo Nhiều Obj
     }
   }
 
@@ -91,11 +91,11 @@ public class PrimitivesTypes {
   }
 
   public static void stringPool() {
-    String a = "OK";                   // String Pool Chưa Có "OK" → Tạo Object Thêm Vào Pool
-    String b = "OK";                   // String Pool Có "OK" Rồi → Ko Tạo Object → Trỏ Chung Vào Object Mà a Đg Trỏ
-    String c = new String("OK");       // Tạo Object Trên Heap + Skip String Pool Check
-    System.out.println(a == b);        // true  — Cùng Pool Object
-    System.out.println(a == c);        // false — Khác Object
+    String a = "OK";                   // String Pool Chưa Có "OK" → Tạo Obj Thêm Vào Pool
+    String b = "OK";                   // String Pool Có "OK" Rồi → Ko Tạo Obj → Trỏ Chung Vào Obj Mà a Đg Trỏ
+    String c = new String("OK");       // Tạo Obj Trên Heap + Skip String Pool Check
+    System.out.println(a == b);        // true  — Cùng Pool Obj
+    System.out.println(a == c);        // false — Khác Obj
     System.out.println(a.equals(c));   // true  — Cùng Nội Dung
     // intern() — Đưa String Vào Pool Thủ Công
     String interned = c.intern();
