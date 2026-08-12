@@ -10,6 +10,7 @@
 ---
 
 - DSA
+- System Design
 - Nginx
 - Kafka
 - RabbitMQ
